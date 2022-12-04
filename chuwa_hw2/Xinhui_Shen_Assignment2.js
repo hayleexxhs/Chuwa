@@ -109,8 +109,8 @@ function compareUUID(a, b) {
 function mergeTwoArrays(arr1, arr2) {
   arr1 = arr1.sort(compareUUID);
   arr2 = arr2.sort(compareUUID);
-  console.log(arr1);
-  console.log(arr2);
+  //   console.log(arr1);
+  //   console.log(arr2);
   let n = arr1.length,
     m = arr2.length,
     i = 0,
