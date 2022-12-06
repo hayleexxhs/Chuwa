@@ -75,7 +75,7 @@ function removeNonalphaAndExtraSpace(str) {
 
 const resStr = removeNonalphaAndExtraSpace(tgtString);
 console.log(resStr);
-console.log(resStr == expectedReturnString);
+console.log(resStr === expectedReturnString);
 
 /*
   Question 3
@@ -105,11 +105,14 @@ const expectedReturnArray = [
 ];
 
 console.log("------------ Q3 ------------");
-function compareUUID(a, b) {
-  return a.uuid - b.uuid;
-}
+// function compareUUID(a, b) {
+//   return a.uuid - b.uuid;
+// }
 
-function mergeTwoArrays(arr1, arr2) {
+const compareUUID = (a, b) => a.uuid - b.uuid;
+
+//two pointers algorithm
+function mergeTwoArrays1(arr1, arr2) {
   arr1 = arr1.sort(compareUUID);
   arr2 = arr2.sort(compareUUID);
   //   console.log(arr1);
@@ -145,7 +148,33 @@ function mergeTwoArrays(arr1, arr2) {
   return arr3;
 }
 
-const resArr = mergeTwoArrays(first, second);
+//object & map
+const mergeTwoArray = (first, second) => {
+  const map = {};
+  [...first, ...second].forEach(({ uuid, role, name }) => {
+    if (!map[uuid]) {
+      map[uuid] = {
+        uuid,
+        ...{ role: role ? role : null },
+        ...{ name: name ? name : null },
+      };
+    } else {
+      map[uuid] = {
+        ...map[uuid],
+        ...(role && { role: role ? role : null }),
+        ...(name && { name: name ? name : null }),
+      };
+    }
+  });
+
+  console.log(Object.keys(map));
+  console.log(Object.values(map));
+  return Object.values(map).sort((left, right) => left - right);
+};
+
+const resArr = mergeTwoArrays1(first, second);
+const resArr2 = mergeTwoArray(first, second);
 console.log(resArr);
-console.log(expectedReturnArray);
-console.log(resArr == expectedReturnArray);
+console.log(JSON.stringify(resArr) === JSON.stringify(expectedReturnArray));
+console.log(resArr2);
+console.log(JSON.stringify(resArr2) === JSON.stringify(expectedReturnArray));
