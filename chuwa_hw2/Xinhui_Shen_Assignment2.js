@@ -15,8 +15,8 @@ const test = [1, 2, 3, 4, 5];
 
 //Given the array, implement a function for generating a new array which doubles the quantity and price in each object.
 console.log("---------- Q1 - 1 ----------");
-const itemsObject2 = itemsObject.map((ele) => {
-  return { quantity: ele.quantity * 2, price: ele.price * 2 };
+const itemsObject2 = itemsObject.map(({ quantity, price }) => {
+  return { quantity: quantity * 2, price: price * 2 };
 });
 console.log(itemsObject2);
 
@@ -38,6 +38,12 @@ itemsObject.forEach((ele) => {
   tot += ele.quantity * ele.price;
 });
 console.log(tot);
+
+console.log(
+  itemsObject.reduce((tot, e) => {
+    return tot + e.quantity * e.price;
+  }, 0)
+);
 
 /*
   Question 2
