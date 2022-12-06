@@ -54,11 +54,8 @@ console.log("------------ Q2 ------------");
 const regexPattern = /[^A-Za-z0-9]/g; //regular expression for non-alphabet
 function removeNonalphaAndExtraSpace(str) {
   let arr = str.trim().replace(regexPattern, " ").toLowerCase().split(" ");
-
-  // str.split(' ') split extra space into '' - using filter to remove ''
-  // if want to use continue in forEach(), filter out unwanted values first
-  // or use for loop instead
   return arr.filter((e) => e != "").join(" ");
+  // str.split(' ') split extra space into '' - using filter to remove ''
 
   //   let resString = "";
   //   arr

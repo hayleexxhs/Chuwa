@@ -1,0 +1,118 @@
+.div001 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.firstDiv table {
+    border-collapse: collapse;
+    margin: 0 25px;
+}
+
+.firstDiv th, .firstDiv td {
+    border: 2px solid #858585;
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.firstDiv th {
+    background-color: #f9ffca;
+}
+
+.firstDiv tr:nth-child(even) {
+    background-color: #c6deef;
+}
+
+.firstDiv tr:nth-child(odd) {
+    background-color: #efc6c6;
+}
+
+#searchInput {
+    width: 40%;
+    padding: 10px 20px 10px 40px;
+    border: 2px solid #dddddd;
+    border-radius: 20px;
+    margin: 0 20px;
+    background-image: url('search.svg');
+    background-position: 15px 10px;
+    background-repeat:no-repeat;
+}
+
+#searchInput:hover {
+    border: 2px solid rgb(132, 84, 180);
+}
+
+#searchInput:focus {
+    border: 2px solid rgb(84, 4, 158);
+    outline: none;    
+}
+
+.inputBox2 {
+    position: relative;
+    margin: 0 0 0 20px;
+    width: 40%;
+}
+
+.inputBox2 input {
+    width: 100%;
+    padding: 10px 40px;
+    border: 2px solid #dddddd;
+    border-radius: 20px;
+}
+
+.inputBox2 input:hover {
+    border: 2px solid #5281f0;
+}
+
+.inputBox2 input:focus {
+    border: 2px solid #5281f0;
+    outline: none;
+}
+
+#spanSearch {
+    color: #a7a7a7;
+    position: absolute;
+    left: 15px;
+    top: 11px;
+    bottom: 5px;
+}
+
+
+#spanMic {
+    color: #5281f0;
+    position: absolute;
+    right: -68px;
+    top: 11px;
+    bottom: 5px;
+}
+
+.thirdDiv {
+    margin: 0 25px;
+}
+
+.thirdDiv table {
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+
+.thirdDiv th {
+    padding: 15px 25px 5px 25px;
+    text-align: left;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.thirdDiv td {
+    padding: 5px 35px 5px 15px;
+    text-align: left;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.fourthDiv {
+    margin: 0 25px;
+}
+
+.fourthDiv select {
+    padding: 5px 8px;
+}
