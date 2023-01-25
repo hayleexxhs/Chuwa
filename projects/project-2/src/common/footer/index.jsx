@@ -8,27 +8,27 @@ import {
 
 const Footer = () => {
   return (
-    <div className="footer-div">
-      <Row align={"middle"}>
+    <>
+      <Row className="footer-div" align={"middle"}>
         <Col span={6}>&copy; 2022 All Rights Reserved.</Col>
         <Col span={12}>
-          <a href="" className="footer-icon">
+          <a className="footer-icon">
             <YoutubeOutlined />
           </a>
-          <a href="" className="footer-icon">
+          <a className="footer-icon">
             <TwitterOutlined />
           </a>
-          <a href="" className="footer-icon">
+          <a className="footer-icon">
             <FacebookFilled />
           </a>
         </Col>
         <Col span={6}>
-          <a href="">Contact us</a>
-          <a href="">Privacy Policies</a>
-          <a href="">Help</a>
+          <a className="footer-text">Contact us</a>
+          <a className="footer-text">Privacy Policies</a>
+          <a className="footer-text">Help</a>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
