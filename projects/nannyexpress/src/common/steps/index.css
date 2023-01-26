@@ -1,0 +1,32 @@
+.steps-title {
+  font-family: PingFang SC;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 34px;
+  color: #3f68b3;
+  margin-top: 0px;
+  margin-bottom: 18px;
+}
+
+.steps-progress-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 40px;
+}
+
+.steps-progress-done {
+  width: 207px;
+  margin-right: 4px;
+  border-bottom: 5px #3f68b3 solid;
+}
+
+.steps-progress-todo {
+  width: 207px;
+  margin-right: 4px;
+  border-bottom: 5px #c4c4c4 solid;
+}
+
+.steps-progress-last {
+  margin-right: 0;
+}

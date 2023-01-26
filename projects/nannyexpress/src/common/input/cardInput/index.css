@@ -1,0 +1,16 @@
+.card-input,
+.card-input-selected {
+  /* width: 231px; */
+  height: 40px;
+  border: 0.5px solid #484848;
+  border-radius: 4px;
+  text-align: center;
+  color: #484848;
+  padding-top: 8px;
+}
+
+.card-input-selected {
+  border: 0.5px solid #3f68b3;
+  background-color: #3f68b3;
+  color: white;
+}

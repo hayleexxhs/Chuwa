@@ -1,0 +1,52 @@
+.disclaimer {
+    margin-top: 10px;
+}
+
+.disclaimer-content {
+    width: 616px;
+    height: 329px;
+    margin: auto;
+    font-size: 14px;
+    font-family: "Roboto";
+    font-weight: 400;
+    font-style: normal;
+    line-height: 18px;
+    color: #3C4144;
+}
+
+.disclaimer-content p {
+    padding: 5px 0 0 0;
+}
+
+.disclaimer-content h3 {
+    padding: 20px 0 5px 0;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 600;
+    font-family: "Roboto";
+}
+
+.disclaimer-content a {
+    color: #4769AE;
+}
+
+.disclaimer-table {
+    margin: 25px 15px 60px 145px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: black;
+}
+
+.disclaimer-table th, td {
+    width: 300px;
+    border: 2px solid #b9b9b9;
+    padding: 10px 8px;
+}
+
+.disclaimer-table th {
+    height: 38px;
+    background-color: #f2f2f2;
+}

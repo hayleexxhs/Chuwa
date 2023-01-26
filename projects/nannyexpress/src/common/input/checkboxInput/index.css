@@ -1,0 +1,22 @@
+.checkbox-container {
+  width: 74px;
+  height: 40px;
+  font-family: PingFang SC;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #414141;
+}
+
+.ant-checkbox-inner {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  margin-left: 2px !important;
+}
+
+.ant-checkbox-wrapper > span {
+  height: 22px !important;
+}

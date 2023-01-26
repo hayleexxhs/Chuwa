@@ -1,0 +1,35 @@
+.phone-input-container {
+  margin-top: 7px;
+}
+
+.phone-input,
+.phone-input-disabled {
+  width: 100% !important;
+  height: 40px !important;
+}
+
+.phone-input-disabled {
+  background-color: #e0e0e0 !important;
+}
+
+.phone-input-info-message,
+.phone-input-error-message {
+  font-family: PingFang SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 17px;
+  margin-top: 4px;
+}
+
+.phone-input-info-message {
+  color: #bfbfbf;
+}
+
+.phone-input-error-message {
+  color: red;
+}
+
+.phone-input-container-error {
+  border: 1px solid red !important;
+}

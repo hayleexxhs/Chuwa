@@ -1,0 +1,7 @@
+.assemble-input-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wraps;
+  justify-content: space-between;
+  max-width: 100%;
+}

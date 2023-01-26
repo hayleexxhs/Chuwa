@@ -1,0 +1,39 @@
+.nanny-form-checkbox {
+  margin-top: 28px;
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.nanny-form-submit-button {
+  margin-top: 18px;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  color: white;
+  background-color: #7391be;
+}
+
+.nanny-form-submit-button:hover,
+.nanny-form-submit-button:focus,
+.nanny-form-submit-button:active {
+  color: white;
+  background-color: #4b638b;
+}
+
+.nanny-form-disclaimer {
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 17px;
+  margin-top: 17px;
+  color: #545454;
+}
+
+.nanny-form-disclaimer a {
+  color: #545454;
+  text-decoration: underline;
+}

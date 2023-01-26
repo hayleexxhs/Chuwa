@@ -1,0 +1,24 @@
+.verfi-code-input-container {
+  position: relative;
+}
+
+.verfi-code-input-button,
+.verfi-code-input-button-disable {
+  padding: 0;
+  position: absolute;
+  z-index: 10;
+  top: 34px;
+  right: 15px;
+  color: #7391be;
+  font-family: PingFang SC;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: right;
+  padding-top: 12px;
+}
+
+.verfi-code-input-button-disable {
+  color: #979797;
+}

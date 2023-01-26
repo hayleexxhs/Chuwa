@@ -1,0 +1,12 @@
+.hireform-wrapper {
+    height: 757px;
+    width: 840px;
+    box-shadow: -1px 2px 10px #E5E5E5;
+}
+
+.hireform-content-wrapper {
+    width: 486px;
+    height: 757px;
+    margin: 0px auto;
+    padding-top: 40px;
+}
