@@ -17,9 +17,8 @@ const VERFI_CODE_STATUS = {
   RESEND: "RESEND",
 };
 
-// HIRE FORM
-const JOB_TYPE = {
-
-}
-
-export default { VERFI_CODE_STATUS, USER_TYPE, LOGIN_FORM_FIELDS };
+export default {
+  VERFI_CODE_STATUS,
+  USER_TYPE,
+  LOGIN_FORM_FIELDS,
+};

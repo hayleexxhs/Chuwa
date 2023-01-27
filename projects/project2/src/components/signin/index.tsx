@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Form, Input } from "antd";
 import "antd/dist/reset.css";
 import TextInput from "../../common/input/textInput";
 import { SIGNIN_FORM } from "../../content/form/signin";
-import CONSTANTS from "../../constants";
 
 import "./index.css";
 
@@ -22,14 +21,40 @@ const Signin = ({
   return (
     <>
       <div className="signin-modal-div">
-        <TextInput
-          value={email.value}
-          label={SIGNIN_FORM.EMAIL.LABEL}
-          placeholder={SIGNIN_FORM.EMAIL.PLACE_HOLDER}
-          errorMessage={SIGNIN_FORM.EMAIL.ERROR_MESSAGE}
-          onChange={(e) => setEmail({ ...email, value: e.target.value })}
-          // disabled={code.status !== CONSTANTS.VERFI_CODE_STATUS.SEND}
-        />
+        <Form layout="vertical">
+          <Form.Item
+            className="customer-form-item"
+            name="email"
+            label="Email"
+            rules={[
+              {
+                type: "email",
+                message: "Invalid Email input!",
+              },
+              {
+                required: true,
+                message: "Please input your Email!",
+              },
+            ]}
+          >
+            <Input className="customer-form-textinput" />
+          </Form.Item>
+
+          <Form.Item
+            className="customer-form-item"
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Invalid password input!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password className="customer-form-textinput" />
+          </Form.Item>
+        </Form>
 
         <Button className="customer-form-submit-button">
           {SIGNIN_FORM.SUBMIT_BUTTON}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TextInput from "../../../common/input/textInput";
-import { Button } from "antd";
+import { Button, Form, Input } from "antd";
 import { FORGOT_PASSWORD } from "../../../content/form/forgotpassword";
 import "./index.css";
 
@@ -18,13 +18,25 @@ const UpdateEmail = ({ handleSentEmail = () => {} }) => {
     <>
       <div className="updateemail-div">
         <div className="updateemail-msg">{FORGOT_PASSWORD.MESSAGE}</div>
-        <TextInput
-          value={email.value}
-          label={FORGOT_PASSWORD.EMAIL.LABEL}
-          errorMessage={FORGOT_PASSWORD.EMAIL.ERROR_MESSAGE}
-          onChange={(e) => setEmail({ ...email, value: e.target.value })}
-          // disabled={code.status !== CONSTANTS.VERFI_CODE_STATUS.SEND}
-        />
+        <Form layout="vertical">
+          <Form.Item
+            className="customer-form-item"
+            name="email"
+            label="Email"
+            rules={[
+              {
+                type: "email",
+                message: "Invalid Email input!",
+              },
+              {
+                required: true,
+                message: "Please input your Email!",
+              },
+            ]}
+          >
+            <Input className="customer-form-textinput" />
+          </Form.Item>
+        </Form>
         <Button
           className="customer-form-submit-button"
           onClick={onClickUpdatePassword}
