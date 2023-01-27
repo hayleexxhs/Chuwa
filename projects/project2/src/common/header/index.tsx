@@ -6,6 +6,7 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import Home from "../../components/home";
 
 const Header = () => {
   const onSearch = (value: string) => console.log(value);
@@ -41,7 +42,9 @@ const Header = () => {
               <span>
                 <UserOutlined style={{ fontSize: 28 }} />
               </span>
-              <a onClick={handleSignIn}>Sign In</a>
+              <a onClick={handleSignIn}>
+                <Home />
+              </a>
               <a>
                 <ShoppingCartOutlined style={{ fontSize: 28 }} />
               </a>
