@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import Modal from "../../common/modal";
-import { SIGNIN_FORM } from "../../content/form/signin";
-import { SIGNUP_FORM } from "../../content/form/signup";
 
 import Signin from "../signin";
 import Signup from "../signup";
+import ForgotPassword from "../forgotpassword";
 
 import "./index.css";
 
 const Home = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
   const [visible, setVisible] = useState(false);
-
   const [titleText, setTitleText] = useState("");
+
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   const onClickSignIn = () => {
     setVisible(true);
@@ -21,6 +21,18 @@ const Home = () => {
 
   const handleTitleText = (title: string) => {
     setTitleText(title);
+  };
+
+  const handleShowSignIn = () => {
+    setIsSignUp(false);
+  };
+
+  const handleShowSignUp = () => {
+    setIsSignUp(true);
+  };
+
+  const handleShowForgotPassword = () => {
+    setIsForgotPassword(true);
   };
 
   return (
@@ -33,9 +45,18 @@ const Home = () => {
         setVisible={setVisible}
       >
         {isSignUp ? (
-          <Signup handleTitleText={handleTitleText} />
+          <Signup
+            handleTitleText={handleTitleText}
+            handleShowSignIn={handleShowSignIn}
+          />
+        ) : isForgotPassword ? (
+          <ForgotPassword handleTitleText={handleTitleText} />
         ) : (
-          <Signin handleTitleText={handleTitleText} />
+          <Signin
+            handleTitleText={handleTitleText}
+            handleShowSignUp={handleShowSignUp}
+            handleShowForgotPassword={handleShowForgotPassword}
+          />
         )}
       </Modal>
     </>

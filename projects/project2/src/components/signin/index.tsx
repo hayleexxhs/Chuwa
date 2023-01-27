@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { Button, Row, Col } from "antd";
 import "antd/dist/reset.css";
 import TextInput from "../../common/input/textInput";
-import VerfiCodeInput from "../../common/input/verificationInput";
 import { SIGNIN_FORM } from "../../content/form/signin";
 import CONSTANTS from "../../constants";
 
 import "./index.css";
 
-const Signin = ({ handleTitleText = (title: string) => {} }) => {
+const Signin = ({
+  handleTitleText = (title: string) => {},
+  handleShowSignUp = () => {},
+  handleShowForgotPassword = () => {},
+}) => {
   const [email, setEmail] = useState({
     value: "",
     errorMessage: "",
@@ -33,10 +36,10 @@ const Signin = ({ handleTitleText = (title: string) => {} }) => {
         </Button>
         <Row className="customer-form-message">
           <Col span={12}>
-            {SIGNIN_FORM.MESSAGE} <a> Sign Up</a>
+            {SIGNIN_FORM.MESSAGE} <a onClick={handleShowSignUp}> Sign Up</a>
           </Col>
           <Col span={12} className="forgot-password">
-            <a>Forgot password?</a>
+            <a onClick={handleShowForgotPassword}>Forgot password?</a>
           </Col>
         </Row>
       </div>

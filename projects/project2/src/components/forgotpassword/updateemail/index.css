@@ -1,0 +1,14 @@
+.updateemail-div {
+    height: 280px;
+    padding: 15px;
+}
+
+.updateemail-msg {
+    margin: auto;
+    text-align: center;
+    width: 364px;
+    height: 24px;
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 30px;
+}

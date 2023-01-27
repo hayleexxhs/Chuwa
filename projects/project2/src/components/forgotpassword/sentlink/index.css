@@ -1,0 +1,19 @@
+.sentlink-div {
+    height: 450px;
+}
+
+.inner-div {
+    margin: auto;
+    text-align: center;
+    padding-top: 160px;
+}
+
+.sentlink-msg {
+    margin: auto;
+    width: 386px;
+    height: 42px;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 600;
+    margin-top: 20px;
+}

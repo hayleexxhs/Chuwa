@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import "antd/dist/reset.css";
 import TextInput from "../../common/input/textInput";
-import VerfiCodeInput from "../../common/input/verificationInput";
 import { SIGNUP_FORM } from "../../content/form/signup";
 import CONSTANTS from "../../constants";
 
 import "./index.css";
 
-const Signup = ({ handleTitleText = (title: string) => {} }) => {
+const Signup = ({
+  handleTitleText = (title: string) => {},
+  handleShowSignIn = () => {},
+}) => {
   const [email, setEmail] = useState({
     value: "",
     errorMessage: "",
@@ -32,7 +34,7 @@ const Signup = ({ handleTitleText = (title: string) => {} }) => {
           {SIGNUP_FORM.SUBMIT_BUTTON}
         </Button>
         <div className="customer-form-message">
-          {SIGNUP_FORM.MESSAGE} <a> Sign In</a>
+          {SIGNUP_FORM.MESSAGE} <a onClick={handleShowSignIn}> Sign In</a>
         </div>
       </div>
     </>
