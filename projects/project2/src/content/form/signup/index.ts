@@ -1,6 +1,6 @@
 export const SIGNUP_FORM = {
-  SIGNIN: "Sign up an account",
-  EMILE: {
+  TITLE: "Sign up an account",
+  EMAIL: {
     LABEL: "Email",
     PLACE_HOLDER: "you@example.com",
     ERROR_MESSAGE: "Invalid Email input!",

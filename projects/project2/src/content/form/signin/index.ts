@@ -1,5 +1,5 @@
 export const SIGNIN_FORM = {
-  SIGNIN: "Sign in to your account",
+  TITLE: "Sign in to your account",
   EMAIL: {
     LABEL: "Email",
     PLACE_HOLDER: "you@example.com",
