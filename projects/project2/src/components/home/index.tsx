@@ -11,7 +11,6 @@ const Home = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [visible, setVisible] = useState(false);
   const [titleText, setTitleText] = useState("");
-
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
 
@@ -43,6 +42,8 @@ const Home = () => {
         titleText={titleText}
         visible={visible}
         setVisible={setVisible}
+        setIsSignUp={setIsSignUp}
+        setIsForgotPassword={setIsForgotPassword}
       >
         {isSignUp ? (
           <Signup

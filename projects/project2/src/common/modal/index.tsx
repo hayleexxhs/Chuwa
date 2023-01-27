@@ -9,10 +9,19 @@ interface IProps {
   visible?: boolean;
   children?: JSX.Element;
   setVisible: (isVisible: boolean) => void;
+  setIsSignUp: (isSignUp: boolean) => void;
+  setIsForgotPassword: (isForgotPassword: boolean) => void;
 }
 
 const MyModal = (props: IProps) => {
-  const { children, titleText, visible, setVisible = () => {} } = props;
+  const {
+    children,
+    titleText,
+    visible,
+    setVisible = () => {},
+    setIsSignUp = () => {},
+    setIsForgotPassword = () => {},
+  } = props;
 
   return (
     <>
@@ -24,6 +33,8 @@ const MyModal = (props: IProps) => {
         footer={null}
         onCancel={() => {
           setVisible(false);
+          setIsSignUp(false);
+          setIsForgotPassword(false);
         }}
       >
         {children}
