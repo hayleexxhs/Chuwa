@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 
 const Header = () => {
-  const onSearch = (value) => console.log(value);
+  const onSearch = (value: string) => console.log(value);
   const suffix = (
     <SearchOutlined
       style={{
@@ -33,7 +33,6 @@ const Header = () => {
             <Input
               className="header-input"
               placeholder="Search"
-              onSearch={onSearch}
               suffix={suffix}
             />
           </Col>
