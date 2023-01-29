@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
-import "antd/dist/reset.css";
-import TextInput from "../../common/input/textInput";
 import { SIGNUP_FORM } from "../../content/form/signup";
-import CONSTANTS from "../../constants";
+import { signupApi } from "../../api/userApi";
 
 import "./index.css";
 
 const Signup = ({
+  handleOnSignin = () => {},
   handleTitleText = (title: string) => {},
   handleShowSignIn = () => {},
 }) => {
-  const [email, setEmail] = useState({
-    value: "",
-    errorMessage: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   handleTitleText(SIGNUP_FORM.TITLE);
+
+  const handleSubmit = async () => {
+    const response = await signupApi({
+      email: email,
+      password: password,
+    });
+
+    if (response.status !== 200) {
+      throw new Error(
+        `Signin API response status error: ${JSON.stringify(response)}`
+      );
+    } else {
+      handleOnSignin();
+    }
+  };
 
   return (
     <>
@@ -37,7 +49,7 @@ const Signup = ({
               },
             ]}
           >
-            <Input className="customer-form-textinput" />
+            <Input className="customer-form-textinput" value={email} />
           </Form.Item>
 
           <Form.Item
@@ -52,11 +64,14 @@ const Signup = ({
             ]}
             hasFeedback
           >
-            <Input.Password className="customer-form-textinput" />
+            <Input.Password
+              className="customer-form-textinput"
+              value={password}
+            />
           </Form.Item>
         </Form>
 
-        <Button className="customer-form-submit-button">
+        <Button className="customer-form-submit-button" onClick={handleSubmit}>
           {SIGNUP_FORM.SUBMIT_BUTTON}
         </Button>
         <div className="customer-form-message">

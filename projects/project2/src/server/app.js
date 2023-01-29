@@ -25,13 +25,55 @@ app.use(express.static(path.join(__dirname, "public")));
 console.log("Server Start!");
 
 //mock database
-const userInfo = [
+let userInfo = [
   { email: "useremail1@gmail.com", password: "user1" },
   { email: "useremail2@gmail.com", password: "user2" },
   { email: "useremail3@gmail.com", password: "user3" },
 ];
 
-//1.(GET) => return all todos in the mock database
+const backendValidation = ({ req, isAddData = false }) => {
+  return isAddData
+    ? req.body &&
+        req.body.content &&
+        req.body.email !== undefined &&
+        req.body.password !== undefined
+    : {};
+};
+
+//Sign In
+app.post('/api/signin', (req, res)=>{
+  // res.json(userInfo);
+  console.log("Backend --Sign In");
+});
+
+//Sign Up
+app.post("/api/signup", (req, res) => {
+  console.log("Backend --Sign Up");
+  //backend validation
+  backendValidation(req, true);
+  if(true) {
+    userInfo = [...userInfo, req.body];
+    res.json({
+      message: 'succeed',
+      status: '201',
+    });
+  }{
+    //error handling
+    res.status(404).json({
+      error: 'failed',
+      message: 'Input is not valid',
+    });
+  }
+})
+
+//Sign Out
+app.post('/api/signout', (req, res)=>{
+  // res.json(userInfo);
+  console.log("Backend --Sign Out");
+});
+
+//3.(PUT) => mod a todo 
+//4.(DELETE) => delete a todo
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -42,9 +42,7 @@ const Header = () => {
               <span>
                 <UserOutlined style={{ fontSize: 28 }} />
               </span>
-              <a onClick={handleSignIn}>
-                <Home />
-              </a>
+              <Home />
               <a>
                 <ShoppingCartOutlined style={{ fontSize: 28 }} />
               </a>

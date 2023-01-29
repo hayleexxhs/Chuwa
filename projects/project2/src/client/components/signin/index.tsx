@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import { Button, Row, Col, Form, Input } from "antd";
-import "antd/dist/reset.css";
-import TextInput from "../../common/input/textInput";
 import { SIGNIN_FORM } from "../../content/form/signin";
+import { signinApi } from "../../api/userApi";
 
 import "./index.css";
 
 const Signin = ({
+  handleOnSignin = () => {},
   handleTitleText = (title: string) => {},
   handleShowSignUp = () => {},
   handleShowForgotPassword = () => {},
 }) => {
-  const [email, setEmail] = useState({
-    value: "",
-    errorMessage: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   handleTitleText(SIGNIN_FORM.TITLE);
+
+  const handleSubmit = async () => {
+    const response = await signinApi({
+      email: email,
+      password: password,
+    });
+
+    if (response.status !== 200) {
+      throw new Error(
+        `Signin API response status error: ${JSON.stringify(response)}`
+      );
+    } else {
+      handleOnSignin();
+    }
+  };
 
   return (
     <>
@@ -52,11 +65,14 @@ const Signin = ({
             ]}
             hasFeedback
           >
-            <Input.Password className="customer-form-textinput" />
+            <Input.Password
+              className="customer-form-textinput"
+              value={password}
+            />
           </Form.Item>
         </Form>
 
-        <Button className="customer-form-submit-button">
+        <Button className="customer-form-submit-button" onClick={handleSubmit}>
           {SIGNIN_FORM.SUBMIT_BUTTON}
         </Button>
         <Row className="customer-form-message">

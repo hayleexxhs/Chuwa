@@ -1,67 +1,35 @@
-import React, { useState } from "react";
-import Modal from "../../common/modal";
+import React, { useState, useEffect } from "react";
 
-import Signin from "../signin";
-import Signup from "../signup";
-import ForgotPassword from "../forgotpassword";
+import { getCustomerApi } from "../../api/userApi";
+import Signout from "../signout";
+import SignContent from "../signcontent";
 
 import "./index.css";
 
 const Home = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [titleText, setTitleText] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
 
-  const onClickSignIn = () => {
-    setVisible(true);
-  };
+  useEffect(() => {
+    async function getCustomer() {
+      try {
+        const response = await getCustomerApi();
+        if (response.status === 200) {
+          setIsSignedIn(true);
+        } else if (response.status === 401) {
+          setIsSignedIn(false);
+        } else {
+          throw new Error(
+            `Get customer API response status error: ${response.status}`
+          );
+        }
+      } catch (error) {
+        throw new Error(`Get customer API error: ${JSON.stringify(error)}`);
+      }
+    }
+    getCustomer();
+  }, []);
 
-  const handleTitleText = (title: string) => {
-    setTitleText(title);
-  };
-
-  const handleShowSignIn = () => {
-    setIsSignUp(false);
-  };
-
-  const handleShowSignUp = () => {
-    setIsSignUp(true);
-  };
-
-  const handleShowForgotPassword = () => {
-    setIsForgotPassword(true);
-  };
-
-  return (
-    <>
-      <a onClick={onClickSignIn}>{isSignedIn ? "Sign Out" : "Sign In"}</a>
-      <Modal
-        width={600}
-        titleText={titleText}
-        visible={visible}
-        setVisible={setVisible}
-        setIsSignUp={setIsSignUp}
-        setIsForgotPassword={setIsForgotPassword}
-      >
-        {isSignUp ? (
-          <Signup
-            handleTitleText={handleTitleText}
-            handleShowSignIn={handleShowSignIn}
-          />
-        ) : isForgotPassword ? (
-          <ForgotPassword handleTitleText={handleTitleText} />
-        ) : (
-          <Signin
-            handleTitleText={handleTitleText}
-            handleShowSignUp={handleShowSignUp}
-            handleShowForgotPassword={handleShowForgotPassword}
-          />
-        )}
-      </Modal>
-    </>
-  );
+  return <>{isSignedIn ? <Signout /> : <SignContent />}</>;
 };
 
 export default Home;
