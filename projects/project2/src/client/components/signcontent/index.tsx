@@ -7,7 +7,7 @@ import ForgotPassword from "../forgotpassword";
 
 import "./index.css";
 
-const SignContent = () => {
+const SignContent = ({ handleOnSignin = () => {} }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [visible, setVisible] = useState(false);
   const [titleText, setTitleText] = useState("");
@@ -34,6 +34,10 @@ const SignContent = () => {
     setIsForgotPassword(true);
   };
 
+  const handleSignIn = () => {
+    handleOnSignin();
+  };
+
   return (
     <>
       <a onClick={onClickSignIn}>{isSignedIn ? "Sign Out" : "Sign In"}</a>
@@ -49,6 +53,7 @@ const SignContent = () => {
           <Signup
             handleTitleText={handleTitleText}
             handleShowSignIn={handleShowSignIn}
+            handleOnSignup={handleSignIn}
           />
         ) : isForgotPassword ? (
           <ForgotPassword handleTitleText={handleTitleText} />
@@ -57,6 +62,7 @@ const SignContent = () => {
             handleTitleText={handleTitleText}
             handleShowSignUp={handleShowSignUp}
             handleShowForgotPassword={handleShowForgotPassword}
+            handleOnSignin={handleSignIn}
           />
         )}
       </Modal>

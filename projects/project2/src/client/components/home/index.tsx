@@ -9,6 +9,14 @@ import "./index.css";
 const Home = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
+  const handleSignin = () => {
+    setIsSignedIn(true);
+  };
+
+  const handleSignout = () => {
+    setIsSignedIn(false);
+  };
+
   useEffect(() => {
     async function getCustomer() {
       try {
@@ -29,7 +37,15 @@ const Home = () => {
     getCustomer();
   }, []);
 
-  return <>{isSignedIn ? <Signout /> : <SignContent />}</>;
+  return (
+    <>
+      {isSignedIn ? (
+        <Signout handleOnSignout={handleSignout} />
+      ) : (
+        <SignContent handleOnSignin={handleSignin} />
+      )}
+    </>
+  );
 };
 
 export default Home;

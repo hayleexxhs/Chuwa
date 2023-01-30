@@ -3,9 +3,10 @@ import { signoutApi } from "../../api/userApi";
 
 import "./index.css";
 
-const Signout = () => {
+const Signout = ({ handleOnSignout = () => {} }) => {
   const handleSignout = async () => {
     console.log("onClick Sign Out");
+    handleOnSignout();
     try {
       const response = await signoutApi();
       if (response.status !== 200) {
@@ -13,7 +14,7 @@ const Signout = () => {
           `Logout API response status error: ${JSON.stringify(response)}`
         );
       } else {
-        // setIsSignedIn(false);
+        handleOnSignout();
       }
     } catch (error) {
       throw new Error(`Logout API error: ${JSON.stringify(error)}`);
