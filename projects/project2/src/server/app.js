@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const { message } = require("antd");
 
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
@@ -41,9 +42,13 @@ const backendValidation = ({ req, isAddData = false }) => {
 };
 
 //Sign In
-app.post('/api/signin', (req, res)=>{
+app.post("/api/signin", (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Sign In");
+  res.json({
+    message: "succeed",
+    status: "200",
+  });
 });
 
 //Sign Up
@@ -70,6 +75,10 @@ app.post("/api/signup", (req, res) => {
 app.post('/api/signout', (req, res)=>{
   // res.json(userInfo);
   console.log("Backend --Sign Out");
+  res.json({
+    message: "succeed",
+    status: "200",
+  });
 });
 
 //3.(PUT) => mod a todo 

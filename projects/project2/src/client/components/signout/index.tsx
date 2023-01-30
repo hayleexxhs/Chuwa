@@ -5,8 +5,7 @@ import "./index.css";
 
 const Signout = ({ handleOnSignout = () => {} }) => {
   const handleSignout = async () => {
-    console.log("onClick Sign Out");
-    handleOnSignout();
+    // handleOnSignout();
     try {
       const response = await signoutApi();
       if (response.status !== 200) {

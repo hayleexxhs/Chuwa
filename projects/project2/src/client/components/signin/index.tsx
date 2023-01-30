@@ -17,7 +17,7 @@ const Signin = ({
   handleTitleText(SIGNIN_FORM.TITLE);
 
   const handleSubmit = async () => {
-    handleOnSignin();
+    // handleOnSignin();
     const response = await signinApi({
       email: email,
       password: password,
@@ -29,7 +29,6 @@ const Signin = ({
         `Signin API response status error: ${JSON.stringify(response)}`
       );
     } else {
-      console.log("frontend: success on Sign In");
       handleOnSignin();
     }
   };
