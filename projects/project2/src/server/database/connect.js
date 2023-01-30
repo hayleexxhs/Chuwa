@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 // const connectionString = `mongodb+srv://ChuwaProject:${process.env.DB_PWD}@cluster0.b9iu9fg.mongodb.net/?retryWrites=true&w=majority`;
 
 const connectionString =
-  "mongodb+srv://ChuwaProject:ChuwaProject@cluster0.b9iu9fg.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://ChuwaProject:ChuwaProject@cluster0.b9iu9fg.mongodb.net/chuwaproject?retryWrites=true&w=majority";
 
 const connectToMongoose = () => {
   mongoose.connect(connectionString);

@@ -49,7 +49,10 @@ const Signup = ({
               },
             ]}
           >
-            <Input className="customer-form-textinput" value={email} />
+            <Input
+              className="customer-form-textinput"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -66,7 +69,7 @@ const Signup = ({
           >
             <Input.Password
               className="customer-form-textinput"
-              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Item>
         </Form>

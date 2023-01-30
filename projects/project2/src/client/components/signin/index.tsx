@@ -24,7 +24,7 @@ const Signin = ({
     });
 
     if (response.status !== 200) {
-      console.log("frontend: fail on Sign In");
+      console.log("frontend: Sign In failed");
       throw new Error(
         `Signin API response status error: ${JSON.stringify(response)}`
       );
@@ -52,7 +52,10 @@ const Signin = ({
               },
             ]}
           >
-            <Input className="customer-form-textinput" />
+            <Input
+              className="customer-form-textinput"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -69,7 +72,7 @@ const Signin = ({
           >
             <Input.Password
               className="customer-form-textinput"
-              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Item>
         </Form>

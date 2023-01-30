@@ -3,7 +3,6 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const { message } = require("antd");
 const { v4: uuidv4 } = require("uuid");
 
 //connect to database
@@ -32,50 +31,96 @@ app.use(express.static(path.join(__dirname, "public")));
 console.log("Server Start!");
 
 //mock database
-let userInfo = [
-  { email: "useremail1@gmail.com", password: "user1" },
-  { email: "useremail2@gmail.com", password: "user2" },
-  { email: "useremail3@gmail.com", password: "user3" },
-];
+// let userInfo = [
+//   { email: "useremail1@gmail.com", password: "user1" },
+//   { email: "useremail2@gmail.com", password: "user2" },
+//   { email: "useremail3@gmail.com", password: "user3" },
+// ];
 
-const backendValidation = ({ req, isAddData = false }) => {
-  return isAddData
-    ? req.body &&
-        req.body.content &&
-        req.body.email !== undefined &&
-        req.body.password !== undefined
-    : {};
+const backendValidation = (req) => {
+  return req.body && req.body.email && req.body.password;
 };
 
 //Sign In
-app.post("/api/signin", (req, res) => {
+app.post("/api/signin", async (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Sign In");
-  res.json({
-    message: "succeed",
-    status: "200",
+  console.log(req.body);
+  if (backendValidation(req)) {
+    const findUserByEmail = await User.find({
+      email: req.body.email,
+    });
+    console.log(findUserByEmail);
+    if (findUserByEmail.length) {
+      if (findUserByEmail[0].password === req.body.password) {
+        res.json({
+          message: "succeed",
+          status: "200",
+        });
+        return;
+      }
+      {
+        console.log("Password incorrect");
+        res.status(404).json({
+          error: "failed",
+          message: "Password incorrect",
+        });
+        return;
+      }
+    }
+    console.log("User does not exist");
+    res.status(404).json({
+      error: "failed",
+      message: "User does not exist",
+    });
+    return;
+  }
+  console.log("Input is not valid");
+  res.status(404).json({
+    error: "failed",
+    message: "Input is not valid",
   });
+  return;
 });
 
 //Sign Up
-app.post("/api/signup", (req, res) => {
+app.post("/api/signup", async (req, res) => {
   console.log("Backend --Sign Up");
+  console.log(req.body);
+
   //backend validation
-  backendValidation(req, true);
-  if(true) {
-    userInfo = [...userInfo, req.body];
-    res.json({
-      message: 'succeed',
-      status: '201',
+  if (backendValidation(req)) {
+    const newUser = new User({
+      id: uuidv4(),
+      email: req.body.email,
+      password: req.body.password,
     });
-  }{
-    //error handling
-    res.status(404).json({
-      error: 'failed',
-      message: 'Input is not valid',
+
+    const addNewUser = await newUser.save();
+    if (newUser === addNewUser) {
+      res.json({
+        message: "succeed",
+        status: "200",
+        newUser: {
+          id: addNewUser.id,
+          email: addNewUser.email,
+          password: addNewUser.password,
+        },
+      });
+      return;
+    }
+    res.status("400").json({
+      message: "Sign up failed",
     });
   }
-})
+  //error handling
+  console.log("Input is not valid");
+  res.status(404).json({
+    error: "failed",
+    message: "Input is not valid",
+  });
+  return;
+});
 
 //Sign Out
 app.post('/api/signout', (req, res)=>{
