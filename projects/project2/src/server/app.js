@@ -4,6 +4,12 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { message } = require("antd");
+const { v4: uuidv4 } = require("uuid");
+
+//connect to database
+const connectToMongoose = require("./database/connect");
+const User = require("./database/model");
+connectToMongoose();
 
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
