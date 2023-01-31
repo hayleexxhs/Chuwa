@@ -1,0 +1,44 @@
+.products-title {
+    font-size: 32px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #111827;
+    text-align: left;
+}
+
+.products-header {
+    text-align: right;
+}
+
+.products-header-select {
+    text-align: center;
+    width: 179px;
+    height: 40px;
+    border-radius: 4px;
+    color: black;
+    font-weight: 400;
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+.products-header-select:focus {
+    color: #565656;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.products-header-button {
+    width: 133px;
+    height: 40px;
+    background-color: #5048E5;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19Spx;
+}
+
+.products-content {
+    background-color: pink;
+    height: 200px;
+    margin: 20px 5px;
+}

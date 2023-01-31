@@ -9,7 +9,6 @@ import {
 import Home from "../../components/home";
 
 const Header = () => {
-  const onSearch = (value: string) => console.log(value);
   const suffix = (
     <SearchOutlined
       style={{
@@ -18,10 +17,6 @@ const Header = () => {
       }}
     />
   );
-
-  const handleSignIn = () => {
-    console.log("Onclick Sign In!");
-  };
 
   return (
     <>
