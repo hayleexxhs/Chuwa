@@ -30,13 +30,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 console.log("Server Start!");
 
-//mock database
-// let userInfo = [
-//   { email: "useremail1@gmail.com", password: "user1" },
-//   { email: "useremail2@gmail.com", password: "user2" },
-//   { email: "useremail3@gmail.com", password: "user3" },
-// ];
-
 const backendValidation = (req) => {
   return req.body && req.body.email && req.body.password;
 };
@@ -90,6 +83,17 @@ app.post("/api/signup", async (req, res) => {
 
   //backend validation
   if (backendValidation(req)) {
+    const findUserByEmail = await User.find({
+      email: req.body.email,
+    });
+    if (findUserByEmail.length) {
+      res.status(404).json({
+        error: "failed",
+        message: "Already Signed",
+      });
+      return;
+    }
+
     const newUser = new User({
       id: uuidv4(),
       email: req.body.email,
@@ -123,7 +127,7 @@ app.post("/api/signup", async (req, res) => {
 });
 
 //Sign Out
-app.post('/api/signout', (req, res)=>{
+app.post("/api/signout", (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Sign Out");
   res.json({
@@ -131,9 +135,6 @@ app.post('/api/signout', (req, res)=>{
     status: "200",
   });
 });
-
-//3.(PUT) => mod a todo 
-//4.(DELETE) => delete a todo
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -20,10 +20,11 @@ const Signup = ({
       email: email,
       password: password,
     });
+    const resJson = await response.json();
 
-    if (response.status !== 200) {
+    if (resJson.status !== "200") {
       throw new Error(
-        `Signin API response status error: ${JSON.stringify(response)}`
+        `Signup API response status error: ${JSON.stringify(resJson.message)}`
       );
     } else {
       handleOnSignup();
