@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Row, Col, Form, Input } from "antd";
+import { Button, Row, Col, Form, Input, Alert } from "antd";
 import { SIGNIN_FORM } from "../../content/form/signin";
 import { signinApi } from "../../api/userApi";
 
@@ -14,31 +14,49 @@ const Signin = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorVisible, setErrorVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   handleTitleText(SIGNIN_FORM.TITLE);
 
+  const handleErrorClose = () => {
+    setErrorVisible(false);
+    setErrorMessage("");
+  };
+
   const handleSubmit = async () => {
-    const response = await signinApi({
-      email: email,
-      password: password,
-    });
-    const resJson = await response.json();
+    if (email && password) {
+      const response = await signinApi({
+        email: email,
+        password: password,
+      });
+      const resJson = await response.json();
 
-    console.log(resJson.status);
-
-    if (resJson.status !== "200") {
-      console.log("frontend: Sign In failed");
-      throw new Error(
-        `Signin API response status error: ${JSON.stringify(resJson.message)}`
-      );
-    } else {
-      console.log("succeed");
-      handleOnSignin();
+      if (resJson.status !== "200") {
+        // console.log("frontend: Sign In failed");
+        setErrorMessage(resJson.message);
+        setErrorVisible(true);
+        throw new Error(
+          `Signin API response status error: ${JSON.stringify(resJson.message)}`
+        );
+      } else {
+        handleOnSignin();
+      }
     }
   };
 
   return (
     <>
       <div className="signin-modal-div">
+        {errorVisible && (
+          <Alert
+            type="error"
+            message={errorMessage}
+            banner
+            closable
+            afterClose={handleErrorClose}
+          />
+        )}
         <Form layout="vertical">
           <Form.Item
             className="customer-form-item"
@@ -78,11 +96,17 @@ const Signin = ({
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Item>
+          <Form.Item>
+            <Button
+              className="customer-form-submit-button"
+              onClick={handleSubmit}
+              htmlType="submit"
+            >
+              {SIGNIN_FORM.SUBMIT_BUTTON}
+            </Button>
+          </Form.Item>
         </Form>
 
-        <Button className="customer-form-submit-button" onClick={handleSubmit}>
-          {SIGNIN_FORM.SUBMIT_BUTTON}
-        </Button>
         <Row className="customer-form-message">
           <Col span={12}>
             {SIGNIN_FORM.MESSAGE} <a onClick={handleShowSignUp}> Sign Up</a>
