@@ -7,7 +7,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App" style={{ backgroundColor: "#f9fafb" }}>
+    <div className="App">
       <Header />
       <Body />
       <Footer />

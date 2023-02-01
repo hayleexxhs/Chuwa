@@ -4,11 +4,9 @@ import Products from "../../components/products";
 
 const Body = () => {
   return (
-    <>
-      <div className="body-div">
-        <Products />
-      </div>
-    </>
+    <div className="body-div">
+      <Products />
+    </div>
   );
 };
 

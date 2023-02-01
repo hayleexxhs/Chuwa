@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Row, Col, Form, Input, Alert, Select } from "antd";
+import { Button, Row, Col, Select } from "antd";
 import ProductCard from "../../common/productCard";
 
 import "./index.css";
@@ -50,6 +50,34 @@ const Products = () => {
     },
   ];
 
+  const showProducts = (array: any, subGroupLength: number) => {
+    const productArray1 = [];
+    let index = 0;
+
+    while (index < array.length) {
+      productArray1.push(
+        array
+          .map(({ imgSrc, productName, price, quantity }: any) => {
+            return (
+              <Col flex={1} style={{ margin: "9px" }}>
+                <ProductCard
+                  imgSrc={imgSrc}
+                  productName={productName}
+                  price={price}
+                  quantity={quantity}
+                />
+              </Col>
+            );
+          })
+          .slice(index, (index += subGroupLength))
+      );
+    }
+
+    return productArray1.map((ele) => {
+      return <Row style={{ margin: "9px" }}>{ele}</Row>;
+    });
+  };
+
   return (
     <>
       <Row>
@@ -65,30 +93,7 @@ const Products = () => {
           <Button className="products-header-button">Add Product</Button>
         </Col>
       </Row>
-      <div className="products-content">
-        {/* <ProductCard
-          imgSrc="https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg"
-          productName="CAPiTA Paradise Snowboard"
-          price={449.95}
-          quantity={2}
-        ></ProductCard> */}
-        <ProductCard
-          imgSrc="https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg"
-          productName="CAPiTA Paradise Snowboard"
-          price={449.95}
-          quantity={2}
-        ></ProductCard>
-        {productsData.map(({ imgSrc, productName, price, quantity }) => {
-          return (
-            <ProductCard
-              imgSrc={imgSrc}
-              productName={productName}
-              price={price}
-              quantity={quantity}
-            ></ProductCard>
-          );
-        })}
-      </div>
+      <div className="products-content">{showProducts(productsData, 5)}</div>
     </>
   );
 };
