@@ -1,11 +1,11 @@
 import "./index.css";
 
-import Products from "../../components/products";
+import ProductContent from "../../components/productcontent";
 
 const Body = () => {
   return (
     <div className="body-div">
-      <Products />
+      <ProductContent />
     </div>
   );
 };

@@ -1,0 +1,45 @@
+.div1 {
+    width: 660px;
+    margin: auto;
+    padding-top: 15px;
+}
+
+.products-title {
+    font-size: 32px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #111827;
+    text-align: left;
+}
+
+.products-create-content {
+    background-color: white;
+    margin: 25px 5px;
+    padding: 40px;
+}
+
+.submit-button {
+    background-color: #5048E5;
+    color: white;
+}
+
+.img-preview-div {
+    width: 388px;
+    height: 200px;
+    margin: auto;
+    border: 2px dashed #CCCCCC;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.img-placeholder-div {
+    padding-top: 60px;
+}
+
+.img-placeholder-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6B7280;
+}

@@ -1,54 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Select } from "antd";
 import ProductCard from "../../common/productCard";
 
+import { showProductApi } from "../../api/productApi";
+
 import "./index.css";
 
-const Products = () => {
+const Products = ({
+  handleShowCreate = (isShow: boolean) => {},
+  handleShowDetail = (isShow: boolean) => {},
+  getProductName = (pName: string) => {},
+}) => {
   const sortOptions = [
     { value: "lastadded", label: "Last Added" },
     { value: "lowtohigh", label: "Price: low to high" },
     { value: "hightolow", label: "Price: high to low" },
   ];
 
-  //mock product data
-  const productsData = [
-    {
-      imgSrc:
-        "https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg",
-      productName: "CAPiTA Paradise Snowboard",
-      price: 449.95,
-      quantity: 2,
-    },
-    {
-      imgSrc:
-        "https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg",
-      productName: "CAPiTA Paradise Snowboard",
-      price: 449.95,
-      quantity: 2,
-    },
-    {
-      imgSrc:
-        "https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg",
-      productName: "CAPiTA Paradise Snowboard",
-      price: 449.95,
-      quantity: 2,
-    },
-    {
-      imgSrc:
-        "https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg",
-      productName: "CAPiTA Paradise Snowboard",
-      price: 449.95,
-      quantity: 2,
-    },
-    {
-      imgSrc:
-        "https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg",
-      productName: "CAPiTA Paradise Snowboard",
-      price: 449.95,
-      quantity: 2,
-    },
-  ];
+  const [productsData, setProductData] = useState([]);
+
+  useEffect(() => {
+    async function showProducts() {
+      try {
+        const response = await showProductApi();
+        const resJson = await response.json();
+        setProductData(resJson);
+      } catch (error) {
+        throw new Error(`Get customer API error: ${JSON.stringify(error)}`);
+      }
+    }
+    showProducts();
+  }, []);
 
   const showProducts = (array: any, subGroupLength: number) => {
     const productArray1 = [];
@@ -59,9 +41,11 @@ const Products = () => {
         array
           .map(({ imgSrc, productName, price, quantity }: any) => {
             return (
-              <Col flex={1} style={{ margin: "9px" }}>
+              <Col style={{ margin: "9px", width: "240px", height: "300px" }}>
                 <ProductCard
-                  imgSrc={imgSrc}
+                  setIsShowDetail={handleShowDetail}
+                  setProductName={getProductName}
+                  imgSrc={`https://${imgSrc}`}
                   productName={productName}
                   price={price}
                   quantity={quantity}
@@ -78,6 +62,10 @@ const Products = () => {
     });
   };
 
+  const handleOnclickAdd = () => {
+    handleShowCreate(true);
+  };
+
   return (
     <>
       <Row>
@@ -89,8 +77,11 @@ const Products = () => {
             className="products-header-select"
             defaultValue={sortOptions[1].value}
             options={sortOptions}
+            size={"large"}
           ></Select>
-          <Button className="products-header-button">Add Product</Button>
+          <Button className="products-header-button" onClick={handleOnclickAdd}>
+            Add Product
+          </Button>
         </Col>
       </Row>
       <div className="products-content">{showProducts(productsData, 5)}</div>

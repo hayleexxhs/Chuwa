@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require("uuid");
 //connect to database
 const connectToMongoose = require("./database/connect");
 const User = require("./database/model");
+const Product = require("./database/model");
 connectToMongoose();
 
 // var indexRouter = require("./routes/index");
@@ -30,8 +31,20 @@ app.use(express.static(path.join(__dirname, "public")));
 
 console.log("Server Start!");
 
-const backendValidation = (req) => {
+const validateUserInfo = (req) => {
   return req.body && req.body.email && req.body.password;
+};
+
+const validateProductInfo = (req) => {
+  return (
+    req.body &&
+    req.body.name &&
+    req.body.description &&
+    req.body.category &&
+    req.body.price &&
+    req.body.quantityInStock &&
+    req.body.imgSrc
+  );
 };
 
 //Sign In
@@ -39,7 +52,7 @@ app.post("/api/signin", async (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Sign In");
   console.log(req.body);
-  if (backendValidation(req)) {
+  if (validateUserInfo(req)) {
     const findUserByEmail = await User.find({
       email: req.body.email,
     });
@@ -82,7 +95,7 @@ app.post("/api/signup", async (req, res) => {
   console.log(req.body);
 
   //backend validation
-  if (backendValidation(req)) {
+  if (validateUserInfo(req)) {
     const findUserByEmail = await User.find({
       email: req.body.email,
     });
@@ -134,6 +147,79 @@ app.post("/api/signout", (req, res) => {
     message: "succeed",
     status: "200",
   });
+});
+
+//Show Product
+app.get("/api/showproduct", async (_, res) => {
+  const findProducts = await Product.find({});
+  const productsList = findProducts.map(({ imgSrc, name, price }) => {
+    return {
+      imgSrc: imgSrc,
+      productName: name,
+      price: price,
+      quantity: 0,
+    };
+  });
+  res.json(productsList);
+  return;
+});
+
+//Add Product
+app.post("/api/addproduct", async (req, res) => {
+  console.log("Backend --Add Product");
+  console.log(req.body);
+
+  //backend validation
+  if (validateProductInfo(req)) {
+    const findProductByName = await User.find({
+      name: req.body.name,
+    });
+    if (findProductByName.length) {
+      res.status(404).json({
+        error: "failed",
+        message: "Already Exist",
+      });
+      return;
+    }
+
+    const newProduct = new Product({
+      id: uuidv4(),
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      quantityInStock: req.body.quantityInStock,
+      imgSrc: req.body.imgSrc,
+    });
+
+    const addNewProduct = await newProduct.save();
+    if (newProduct === addNewProduct) {
+      res.json({
+        message: "succeed",
+        status: "200",
+        newUser: {
+          id: uuidv4(),
+          name: addNewProduct.name,
+          description: addNewProduct.description,
+          category: addNewProduct.category,
+          price: addNewProduct.price,
+          quantityInStock: addNewProduct.quantityInStock,
+          imgSrc: addNewProduct.imgSrc,
+        },
+      });
+      return;
+    }
+    res.status("400").json({
+      message: "Add product failed",
+    });
+  }
+  //error handling
+  console.log("Input is not valid");
+  res.status(404).json({
+    error: "failed",
+    message: "Input is not valid",
+  });
+  return;
 });
 
 // catch 404 and forward to error handler
