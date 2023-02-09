@@ -99,6 +99,7 @@ app.post("/api/signup", async (req, res) => {
     const findUserByEmail = await User.find({
       email: req.body.email,
     });
+    console.log(findUserByEmail);
     if (findUserByEmail.length) {
       res.status(404).json({
         error: "failed",
@@ -111,6 +112,10 @@ app.post("/api/signup", async (req, res) => {
       id: uuidv4(),
       email: req.body.email,
       password: req.body.password,
+      userType: "regular",
+      cart: {},
+      quantity: 0,
+      totPrice: 0,
     });
 
     const addNewUser = await newUser.save();
@@ -122,6 +127,10 @@ app.post("/api/signup", async (req, res) => {
           id: addNewUser.id,
           email: addNewUser.email,
           password: addNewUser.password,
+          userType: addNewUser.userType,
+          cart: addNewUser.cart,
+          quantity: addNewUser.quantity,
+          totPrice: addNewUser.totPrice,
         },
       });
       return;

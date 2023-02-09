@@ -8,7 +8,7 @@ import ForgotPassword from "../forgotpassword";
 import "./index.css";
 
 const SignContent = ({ handleOnSignin = () => {} }) => {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [visible, setVisible] = useState(false);
   const [titleText, setTitleText] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);

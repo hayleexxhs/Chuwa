@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button, Row, Col, Select } from "antd";
 import ProductCard from "../../common/productCard";
+import { RootState } from "../../store";
 
 import "./index.css";
 
@@ -16,7 +17,7 @@ const Products = ({
     { value: "hightolow", label: "Price: high to low" },
   ];
 
-  const products = useSelector((state: []) => state);
+  const products = useSelector((state: RootState) => state.products);
 
   const handleOnclickAdd = () => {
     handleShowCreate(true);

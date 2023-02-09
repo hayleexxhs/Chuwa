@@ -54,7 +54,7 @@ export const userReducer = (
   }
 };
 
-export default combineReducers({
+export const rootReducer = combineReducers({
   products: reducer,
   user: userReducer,
 });

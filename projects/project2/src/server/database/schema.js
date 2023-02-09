@@ -18,6 +18,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userType: {
+    type: String,
+    required: true,
+  },
+  cart: {
+    type: {},
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  totPrice: {
+    type: Number,
+    required: true,
+  },
 });
 
 const productScheme = new mongoose.Schema({
