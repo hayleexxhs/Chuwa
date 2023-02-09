@@ -2,6 +2,7 @@ import { Col, Row, Button, Image } from "antd";
 import { useState, useEffect } from "react";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
+import { getProductDetailApi } from "../../api/productApi";
 import "./index.css";
 
 interface IProps {
@@ -11,20 +12,20 @@ interface IProps {
 const ProductDetail = ({ pName }: IProps) => {
   const [productData, setProductData] = useState([]);
 
-  // useEffect(() => {
-  //   async function showProductDetail(pName: string) {
-  //     try {
-  //       const response = await getProductDetailApi({ name: pName });
-  //       const resJson = await response.json();
-  //       setProductData(resJson);
-  //     } catch (error) {
-  //       throw new Error(
-  //         `Get ProductDetail API error: ${JSON.stringify(error)}`
-  //       );
-  //     }
-  //   }
-  //   showProductDetail(pName);
-  // }, []);
+  useEffect(() => {
+    async function showProductDetail(pName: string) {
+      try {
+        const response = await getProductDetailApi({ name: pName });
+        const resJson = await response.json();
+        setProductData(resJson);
+      } catch (error) {
+        throw new Error(
+          `Get ProductDetail API error: ${JSON.stringify(error)}`
+        );
+      }
+    }
+    showProductDetail(pName);
+  }, []);
 
   const [quantity, setQuantity] = useState(0);
 

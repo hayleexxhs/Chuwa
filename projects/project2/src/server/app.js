@@ -197,8 +197,8 @@ app.post("/api/addproduct", async (req, res) => {
       res.json({
         message: "succeed",
         status: "200",
-        newProduct: {
-          id: addNewProduct.id,
+        newUser: {
+          id: uuidv4(),
           name: addNewProduct.name,
           description: addNewProduct.description,
           category: addNewProduct.category,

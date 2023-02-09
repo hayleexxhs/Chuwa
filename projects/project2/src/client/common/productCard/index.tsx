@@ -52,25 +52,33 @@ const ProductCard = (props: IProps) => {
 
   return (
     <>
-      <a
-        onClick={() => {
-          setIsShowDetail(true);
-          setProductName(productName);
+      <div
+        style={{
+          margin: "9px",
+          width: "240px",
         }}
       >
         <Card className="product-card">
           <img src={imgSrc} />
-          <div className="product-name">{productName}</div>
+          <div
+            className="product-name"
+            onClick={() => {
+              setIsShowDetail(true);
+              setProductName(productName);
+            }}
+          >
+            {productName}
+          </div>
           <div className="product-price">{`$${price}`}</div>
           <Row>
             <Col className="product-gutter-left" span={12}>
               {quantityInCart === 0 ? (
-                <button
+                <Button
                   className="product-add-button"
                   onClick={handleAddToCart}
                 >
                   Add
-                </button>
+                </Button>
               ) : (
                 addtoCart
               )}
@@ -80,7 +88,7 @@ const ProductCard = (props: IProps) => {
             </Col>
           </Row>
         </Card>
-      </a>
+      </div>
     </>
   );
 };
