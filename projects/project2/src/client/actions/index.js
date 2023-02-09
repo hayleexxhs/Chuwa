@@ -8,6 +8,14 @@ export const INIT_PRODUCT = "INIT_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const EDIT_PRODUCT = "EDIT_PRODUCT";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const INIT_USER = "INIT_USER";
+
+export const initUser = (dispatch) => (content) => {
+  dispatch({
+    type: INIT_USER,
+    payload: content,
+  });
+};
 
 export const initProduct = (dispatch) => async () => {
   try {

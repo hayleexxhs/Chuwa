@@ -7,8 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 
 //connect to database
 const connectToMongoose = require("./database/connect");
-const User = require("./database/model");
-const Product = require("./database/model");
+const User = require("./database/usermodel");
+const Product = require("./database/productmodel");
 connectToMongoose();
 
 // var indexRouter = require("./routes/index");
