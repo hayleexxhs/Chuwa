@@ -16,7 +16,7 @@ export const addProductApi = async (signupInfo: any) => {
 
 export const editProductApi = async (signupInfo: any) => {
   const response = await fetch("/api/editproduct", {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

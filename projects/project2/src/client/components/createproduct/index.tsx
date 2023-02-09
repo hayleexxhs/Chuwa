@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Row, Col, Form, Input, Select, Image } from "antd";
 import { PictureFilled } from "@ant-design/icons";
+import { addProduct, editProduct } from "../../actions";
 import { addProductApi, editProductApi } from "../../api/productApi";
 
 import "./index.css";
@@ -25,6 +27,8 @@ const CreateProduct = (props: Iprops) => {
     imglink,
     setIsShowCreate = () => {},
   } = props;
+
+  const dispatch = useDispatch();
 
   let imgSrcImput = "";
 
@@ -58,8 +62,8 @@ const CreateProduct = (props: Iprops) => {
     setImgSrc(imgSrcImput);
   };
 
-  const handleAddProduct = async () => {
-    const response = await addProductApi({
+  const handleAddProduct = () => {
+    addProduct(dispatch)({
       name: productName,
       description: productdescription,
       category: productCategory,
@@ -67,18 +71,26 @@ const CreateProduct = (props: Iprops) => {
       quantityInStock: quantity,
       imgSrc: imgSrc,
     });
-    const resJson = await response.json();
-
-    if (resJson.status !== "200") {
-      // setErrorMessage(resJson.message);
-      // setErrorVisible(true);
-      throw new Error(
-        `Signup API response status error: ${JSON.stringify(resJson.message)}`
-      );
-    } else {
-      console.log("Add Product Succeed");
-      setIsShowCreate(false);
-    }
+    setIsShowCreate(false);
+    // const response = await addProductApi({
+    //   name: productName,
+    //   description: productdescription,
+    //   category: productCategory,
+    //   price: price,
+    //   quantityInStock: quantity,
+    //   imgSrc: imgSrc,
+    // });
+    // const resJson = await response.json();
+    // if (resJson.status !== "200") {
+    //   // setErrorMessage(resJson.message);
+    //   // setErrorVisible(true);
+    //   throw new Error(
+    //     `Signup API response status error: ${JSON.stringify(resJson.message)}`
+    //   );
+    // } else {
+    //   console.log("Add Product Succeed");
+    //   setIsShowCreate(false);
+    // }
   };
 
   const handleEditProduct = () => {};

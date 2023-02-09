@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Button, Row, Col, Select } from "antd";
 import ProductCard from "../../common/productCard";
-
-import { showProductApi } from "../../api/productApi";
 
 import "./index.css";
 
@@ -17,20 +16,7 @@ const Products = ({
     { value: "hightolow", label: "Price: high to low" },
   ];
 
-  const [productsData, setProductData] = useState([]);
-
-  useEffect(() => {
-    async function showProducts() {
-      try {
-        const response = await showProductApi();
-        const resJson = await response.json();
-        setProductData(resJson);
-      } catch (error) {
-        throw new Error(`Get customer API error: ${JSON.stringify(error)}`);
-      }
-    }
-    showProducts();
-  }, []);
+  const products = useSelector((state: []) => state);
 
   const handleOnclickAdd = () => {
     handleShowCreate(true);
@@ -55,13 +41,14 @@ const Products = ({
         </Col>
       </Row>
       <div className="products-content">
-        {productsData.map(({ imgSrc, productName, price, quantity }: any) => {
+        {products.map(({ id, imgSrc, name, price, quantity }: any) => {
           return (
             <ProductCard
+              id={id}
               setIsShowDetail={handleShowDetail}
               setProductName={getProductName}
               imgSrc={`https://${imgSrc}`}
-              productName={productName}
+              productName={name}
               price={price}
               quantity={quantity}
             />

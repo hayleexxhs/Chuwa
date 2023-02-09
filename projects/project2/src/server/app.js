@@ -152,14 +152,20 @@ app.post("/api/signout", (req, res) => {
 //Show Product
 app.get("/api/showproduct", async (_, res) => {
   const findProducts = await Product.find({});
-  const productsList = findProducts.map(({ imgSrc, name, price }) => {
-    return {
-      imgSrc: imgSrc,
-      productName: name,
-      price: price,
-      quantity: 0,
-    };
-  });
+  const productsList = findProducts.map(
+    ({ id, name, description, category, price, quantityInStock, imgSrc }) => {
+      return {
+        id: id,
+        name: name,
+        description: description,
+        category: category,
+        price: price,
+        quantityInStock: quantityInStock,
+        imgSrc: imgSrc,
+        quantity: 0,
+      };
+    }
+  );
   res.json(productsList);
   return;
 });
@@ -171,17 +177,6 @@ app.post("/api/addproduct", async (req, res) => {
 
   //backend validation
   if (validateProductInfo(req)) {
-    const findProductByName = await User.find({
-      name: req.body.name,
-    });
-    if (findProductByName.length) {
-      res.status(404).json({
-        error: "failed",
-        message: "Already Exist",
-      });
-      return;
-    }
-
     const newProduct = new Product({
       id: uuidv4(),
       name: req.body.name,
@@ -197,8 +192,8 @@ app.post("/api/addproduct", async (req, res) => {
       res.json({
         message: "succeed",
         status: "200",
-        newUser: {
-          id: uuidv4(),
+        newProduct: {
+          id: addNewProduct.id,
           name: addNewProduct.name,
           description: addNewProduct.description,
           category: addNewProduct.category,

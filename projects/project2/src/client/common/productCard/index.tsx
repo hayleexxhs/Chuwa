@@ -4,6 +4,7 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 interface IProps {
+  id: string;
   imgSrc: string;
   productName: string;
   price: number;
@@ -14,6 +15,7 @@ interface IProps {
 
 const ProductCard = (props: IProps) => {
   const {
+    id,
     imgSrc,
     productName,
     price,
