@@ -3,35 +3,24 @@ export const showProductApi = async () => {
   return response;
 };
 
-export const addProductApi = async (signupInfo: any) => {
+export const addProductApi = async (addproductInfo: any) => {
   const response = await fetch("/api/addproduct", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(signupInfo),
+    body: JSON.stringify(addproductInfo),
   });
   return response;
 };
 
-export const editProductApi = async (signupInfo: any) => {
+export const editProductApi = async (editproductInfo: any) => {
   const response = await fetch("/api/editproduct", {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(signupInfo),
-  });
-  return response;
-};
-
-export const getProductDetailApi = async (signupInfo: any) => {
-  const response = await fetch("/api/getproductdetail", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(signupInfo),
+    body: JSON.stringify(editproductInfo),
   });
   return response;
 };

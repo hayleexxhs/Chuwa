@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Row, Col, Select } from "antd";
 import ProductCard from "../../common/productCard";
+import { initProduct } from "../../actions";
 
 import { showProductApi } from "../../api/productApi";
 
@@ -17,50 +19,51 @@ const Products = ({
     { value: "hightolow", label: "Price: high to low" },
   ];
 
-  const [productsData, setProductData] = useState([]);
+  // const [productsData, setProductData] = useState([]);
+  const products = useSelector((state: any) => state.products);
 
-  useEffect(() => {
-    async function showProducts() {
-      try {
-        const response = await showProductApi();
-        const resJson = await response.json();
-        setProductData(resJson);
-      } catch (error) {
-        throw new Error(`Get customer API error: ${JSON.stringify(error)}`);
-      }
-    }
-    showProducts();
-  }, []);
+  // useEffect(() => {
+  //   async function showProducts() {
+  //     try {
+  //       const response = await showProductApi();
+  //       const resJson = await response.json();
+  //       setProductData(resJson);
+  //     } catch (error) {
+  //       throw new Error(`Get customer API error: ${JSON.stringify(error)}`);
+  //     }
+  //   }
+  //   showProducts();
+  // }, []);
 
-  const showProducts = (array: any, subGroupLength: number) => {
-    const productArray1 = [];
-    let index = 0;
+  // const showProducts = (array: any, subGroupLength: number) => {
+  //   const productArray1 = [];
+  //   let index = 0;
 
-    while (index < array.length) {
-      productArray1.push(
-        array
-          .map(({ imgSrc, productName, price, quantity }: any) => {
-            return (
-              <Col style={{ margin: "9px", width: "240px", height: "300px" }}>
-                <ProductCard
-                  setIsShowDetail={handleShowDetail}
-                  setProductName={getProductName}
-                  imgSrc={`https://${imgSrc}`}
-                  productName={productName}
-                  price={price}
-                  quantity={quantity}
-                />
-              </Col>
-            );
-          })
-          .slice(index, (index += subGroupLength))
-      );
-    }
+  //   while (index < array.length) {
+  //     productArray1.push(
+  //       array
+  //         .map(({ imgSrc, productName, price, quantity }: any) => {
+  //           return (
+  //             <Col style={{ margin: "9px", width: "240px", height: "300px" }}>
+  //               <ProductCard
+  //                 setIsShowDetail={handleShowDetail}
+  //                 setProductName={getProductName}
+  //                 imgSrc={`https://${imgSrc}`}
+  //                 productName={productName}
+  //                 price={price}
+  //                 quantity={quantity}
+  //               />
+  //             </Col>
+  //           );
+  //         })
+  //         .slice(index, (index += subGroupLength))
+  //     );
+  //   }
 
-    return productArray1.map((ele) => {
-      return <Row style={{ margin: "9px" }}>{ele}</Row>;
-    });
-  };
+  //   return productArray1.map((ele) => {
+  //     return <Row style={{ margin: "9px" }}>{ele}</Row>;
+  //   });
+  // };
 
   const handleOnclickAdd = () => {
     handleShowCreate(true);
@@ -84,7 +87,24 @@ const Products = ({
           </Button>
         </Col>
       </Row>
-      <div className="products-content">{showProducts(productsData, 5)}</div>
+      <div className="products-content">
+        <ul>
+          {products.map(({ imgSrc, productName, price, quantity }: any) => {
+            return (
+              <li style={{ margin: "9px", width: "240px", height: "300px" }}>
+                <ProductCard
+                  setIsShowDetail={handleShowDetail}
+                  setProductName={getProductName}
+                  imgSrc={`https://${imgSrc}`}
+                  productName={productName}
+                  price={price}
+                  quantity={quantity}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };
