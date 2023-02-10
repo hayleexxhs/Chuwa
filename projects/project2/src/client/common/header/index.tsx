@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { Col, Row, Input, Space } from "antd";
+import { Col, Row, Input, Space, Drawer, List, Button } from "antd";
 import {
   SearchOutlined,
   UserOutlined,
@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 
 import Home from "../../components/home";
+import CartItem from "../cartItem";
 
 import "./index.css";
 
@@ -22,7 +23,14 @@ const Header = () => {
     />
   );
 
+  const [isShowCart, setIsShowCart] = useState(false);
   const user = useSelector((state: RootState) => state.user);
+  const [open, setOpen] = useState(false);
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const [discount, setDiscount] = useState(20);
 
   return (
     <>
@@ -44,7 +52,11 @@ const Header = () => {
                 <UserOutlined style={{ fontSize: 28 }} />
               </span>
               <Home />
-              <a>
+              <a
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
                 <ShoppingCartOutlined style={{ fontSize: 28 }} />
               </a>
               <span>{`$${user.totPrice.toFixed(2)}`}</span>
@@ -52,6 +64,58 @@ const Header = () => {
           </Col>
         </Row>
       </div>
+
+      <Drawer title="Cart  " placement="right" onClose={onClose} open={open}>
+        <div>
+          <List
+            dataSource={user.cart}
+            renderItem={(item: any) => (
+              <List.Item>
+                <CartItem id={item.id} />
+              </List.Item>
+            )}
+          />
+          <div>
+            <span>Apply Discount Code</span>
+            <Row>
+              <Col span={18}>
+                <Input></Input>
+              </Col>
+              <Col span={6}>
+                <Button>Apply</Button>
+              </Col>
+            </Row>
+          </div>
+          <hr />
+          <div>
+            <Row>
+              <Col span={18}>Subtotal</Col>
+              <Col span={6}>{`$${user.totPrice.toFixed(2)}`}</Col>
+            </Row>
+            <Row>
+              <Col span={18}>Tax</Col>
+              <Col span={6}>
+                {user.totPrice > discount
+                  ? `$${((user.totPrice - discount) * 0.095).toFixed(2)}`
+                  : "$0.00"}
+              </Col>
+            </Row>
+            <Row>
+              <Col span={18}>Discount</Col>
+              <Col span={6}>{`-$${discount.toFixed(2)}`}</Col>
+            </Row>
+            <Row>
+              <Col span={18}>Estimated Total</Col>
+              <Col span={6}>
+                {user.totPrice > discount
+                  ? `$${((user.totPrice - discount) * 1.095).toFixed(2)}`
+                  : "$0.00"}
+              </Col>
+            </Row>
+          </div>
+          <Button>Countinue to checkout</Button>
+        </div>
+      </Drawer>
     </>
   );
 };
