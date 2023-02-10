@@ -7,10 +7,13 @@ import {
 export const INIT_PRODUCT = "INIT_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const EDIT_PRODUCT = "EDIT_PRODUCT";
-export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_ONE = "ADD_ONE";
+export const MINUS_ONE = "MINUS_ONE";
 export const INIT_USER = "INIT_USER";
 export const RESET_USER = "RESET_USER";
 export const SHOW_DETAIL = "SHOW_DETAIL";
+export const ADD_ONE_USER = "ADD_ONE_USER";
+export const MINUS_ONE_USER = "MINUS_ONE_USER";
 
 export const initUser = (dispatch) => (content) => {
   dispatch({
@@ -18,6 +21,12 @@ export const initUser = (dispatch) => (content) => {
     payload: content,
   });
   console.log(content);
+};
+
+export const resetUser = (dispatch) => () => {
+  dispatch({
+    type: RESET_USER,
+  });
 };
 
 export const initProduct = (dispatch) => async () => {
@@ -65,16 +74,30 @@ export const editProduct = (dispatch) => async (content) => {
   }
 };
 
-export const addToCart = (dispatch) => (id) => {
+export const addOne = (dispatch) => (id) => {
   dispatch({
-    type: ADD_TO_CART,
+    type: ADD_ONE,
     payload: id,
   });
 };
 
-// export const showDetail = (dispatch) => (id) => {
-//   dispatch({
-//     type: SHOW_DETAIL,
-//     payload: id,
-//   });
-// };
+export const minusOne = (dispatch) => (id) => {
+  dispatch({
+    type: MINUS_ONE,
+    payload: id,
+  });
+};
+
+export const addOneUser = (dispatch) => (content) => {
+  dispatch({
+    type: ADD_ONE_USER,
+    payload: content,
+  });
+};
+
+export const minusOneUser = (dispatch) => (content) => {
+  dispatch({
+    type: MINUS_ONE_USER,
+    payload: content,
+  });
+};

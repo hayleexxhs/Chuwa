@@ -50,31 +50,19 @@ const Products = ({
         </Col>
       </Row>
       <div className="products-content">
-        {products.map(
-          ({
-            id,
-            imgSrc,
-            name,
-            price,
-            quantity,
-            description,
-            category,
-          }: any) => {
-            return (
-              <ProductCard
-                id={id}
-                setIsShowDetail={handleShowDetail}
-                setDetailId={getDetailId}
-                imgSrc={`https://${imgSrc}`}
-                productName={name}
-                price={price}
-                quantity={quantity}
-                // description={description}
-                // category={category}
-              />
-            );
-          }
-        )}
+        {products.map(({ id, imgSrc, name, price, quantity }: any) => {
+          return (
+            <ProductCard
+              id={id}
+              setIsShowDetail={handleShowDetail}
+              setDetailId={getDetailId}
+              imgSrc={`https://${imgSrc}`}
+              productName={name}
+              price={Number(price)}
+              quantity={Number(quantity)}
+            />
+          );
+        })}
       </div>
     </>
   );

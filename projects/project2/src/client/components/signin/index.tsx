@@ -47,7 +47,6 @@ const Signin = ({
           `Signin API response status error: ${JSON.stringify(resJson.message)}`
         );
       } else {
-        handleOnSignin();
         initUser(dispatch)({
           id: resJson.user.id,
           userType: resJson.user.userType,
@@ -55,6 +54,7 @@ const Signin = ({
           totPrice: resJson.user.totPrice,
           cart: resJson.user.cart,
         });
+        handleOnSignin();
         console.log(`after reducer: ${user.userType}`);
       }
     }

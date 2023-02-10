@@ -3,11 +3,13 @@ import { combineReducers } from "redux";
 import {
   ADD_PRODUCT,
   EDIT_PRODUCT,
-  ADD_TO_CART,
+  ADD_ONE,
+  MINUS_ONE,
   INIT_PRODUCT,
   INIT_USER,
   RESET_USER,
-  SHOW_DETAIL,
+  ADD_ONE_USER,
+  MINUS_ONE_USER,
 } from "../actions";
 
 export const reducer = (state = [], { type, payload }) => {
@@ -34,12 +36,20 @@ export const reducer = (state = [], { type, payload }) => {
         };
       });
 
-    case ADD_TO_CART:
+    case ADD_ONE:
       return state.map((product) => {
         if (payload != product.id) {
           return product;
         }
-        return { quantityInCart: product.quantityInCart + 1 };
+        return { ...product, quantity: product.quantity + 1 };
+      });
+
+    case MINUS_ONE:
+      return state.map((product) => {
+        if (payload != product.id) {
+          return product;
+        }
+        return { ...product, quantity: product.quantity - 1 };
       });
 
     default:
@@ -50,39 +60,66 @@ export const reducer = (state = [], { type, payload }) => {
 export const userReducer = (
   state = {
     id: "",
-    userType: "admin",
+    userType: "guest",
     quantity: 0,
     totPrice: 0,
-    cart: {},
+    cart: [],
   },
   { type, payload }
 ) => {
   switch (type) {
     case INIT_USER:
-      console.log(payload.userType);
-      return { ...state, ...payload };
+      return {
+        ...state,
+        id: payload.id,
+        userType: payload.userType,
+        quantity: payload.quantity,
+        totPrice: payload.totPrice,
+        cart: payload.cart,
+      };
     case RESET_USER:
       return {
         id: "",
         userType: "guest",
         quantity: 0,
         totPrice: 0,
-        cart: {},
+        cart: [],
+      };
+    case ADD_ONE_USER:
+      let newCart = [];
+      if (state.cart.find((pd) => pd.id === payload.id) !== undefined) {
+        newCart = state.cart.map((pd) => {
+          if (pd.id !== payload.id) return pd;
+          return { ...pd, quantity: pd.quantity + 1 };
+        });
+      } else {
+        newCart = [...state.cart, { id: payload.id, quantity: 1 }];
+      }
+      return {
+        ...state,
+        totPrice: state.totPrice + payload.price,
+        quantity: state.quantity + 1,
+        cart: newCart,
+      };
+    case MINUS_ONE_USER:
+      const newCart2 = state.cart
+        .map((pd) => {
+          if (pd.id !== payload.id) return pd;
+          return { ...pd, quantity: pd.quantity - 1 };
+        })
+        .filter((pd) => pd.quantity > 0);
+      return {
+        ...state,
+        totPrice: state.totPrice - payload.price,
+        quantity: state.quantity - 1,
+        cart: newCart2,
       };
     default:
       return state;
   }
 };
 
-// export const detailReducer = (state = {}, { type, payload }) => {
-//   switch (type) {
-//     case SHOW_DETAIL:
-//       return { ...state, ...payload };
-//   }
-// };
-
 export const rootReducer = combineReducers({
   products: reducer,
   user: userReducer,
-  //   detail: detailReducer,
 });

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { signoutApi } from "../../api/userApi";
+import { resetUser } from "../../actions";
 
 import "./index.css";
 
 const Signout = ({ handleOnSignout = () => {} }) => {
+  const dispatch = useDispatch();
   const handleSignout = async () => {
     // handleOnSignout();
     try {
@@ -14,6 +17,7 @@ const Signout = ({ handleOnSignout = () => {} }) => {
         );
       } else {
         handleOnSignout();
+        resetUser(dispatch)();
       }
     } catch (error) {
       throw new Error(`Logout API error: ${JSON.stringify(error)}`);

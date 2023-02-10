@@ -13,16 +13,17 @@ interface IProps {
 
 const ProductDetail = ({ id }: IProps) => {
   // const [productData, setProductData] = useState([]);
-  // const [quantity, setQuantity] = useState(0);
   console.log(id);
   const products = useSelector((state: RootState) => state.products);
   const user = useSelector((state: RootState) => state.user);
 
   const pd = products.filter((p) => p.id === id)[0];
-  console.log(pd);
+  // console.log(pd);
+
+  // const [quantity, setQuantity] = useState(0);
 
   const addtoCart = (
-    <button disabled className="product-add-button">
+    <button disabled className="product-add-button" style={{ height: 33 }}>
       <Row>
         <Col span={8}>
           <a style={{ color: "white" }}>
@@ -60,7 +61,7 @@ const ProductDetail = ({ id }: IProps) => {
             <Row>
               <Col className="" span={4}>
                 {pd.quantity === 0 ? (
-                  <button className="product-add-button">Add</button>
+                  <Button className="product-add-button">Add</Button>
                 ) : (
                   addtoCart
                 )}

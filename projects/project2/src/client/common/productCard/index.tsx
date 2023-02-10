@@ -4,7 +4,7 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
-// import { showDetail } from "../../actions";
+import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
 
 interface IProps {
   id: string;
@@ -12,8 +12,6 @@ interface IProps {
   productName: string;
   price: number;
   quantity: number;
-  // description: string;
-  // category: string;
   setIsShowDetail: (isShow: boolean) => void;
   setDetailId: (id: string) => void;
 }
@@ -25,8 +23,6 @@ const ProductCard = (props: IProps) => {
     productName,
     price,
     quantity,
-    // description,
-    // category,
     setIsShowDetail,
     setDetailId,
   } = props;
@@ -37,14 +33,18 @@ const ProductCard = (props: IProps) => {
 
   const handleAddToCart = () => {
     setQuantityInCart(quantityInCart + 1);
+    addOne(dispatch)(id);
+    addOneUser(dispatch)({ id: id, price: price });
   };
 
   const handleMinus = () => {
     setQuantityInCart(quantityInCart - 1);
+    minusOne(dispatch)(id);
+    minusOneUser(dispatch)({ id: id, price: price });
   };
 
   const addtoCart = (
-    <button disabled className="product-add-button">
+    <button disabled className="product-add-button" style={{ height: 34 }}>
       <Row>
         <Col span={8}>
           <a style={{ color: "white" }} onClick={handleMinus}>

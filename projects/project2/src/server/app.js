@@ -114,7 +114,7 @@ app.post("/api/signup", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       userType: "regular",
-      cart: {},
+      cart: [],
       quantity: 0,
       totPrice: 0,
     });
