@@ -6,7 +6,6 @@ import { RootState } from "../../store";
 import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
 
 import "./index.css";
-import { rootReducer } from "../../reducers";
 
 interface IProps {
   id: string;
@@ -51,6 +50,7 @@ const ProductDetail = ({ id }: IProps) => {
 
   return (
     <>
+      <div></div>
       <div className="products-title">Product Detail</div>
       <div className="products-content">
         <Row>
