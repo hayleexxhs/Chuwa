@@ -56,10 +56,10 @@ const Products = ({
               id={id}
               setIsShowDetail={handleShowDetail}
               setDetailId={getDetailId}
-              imgSrc={`https://${imgSrc}`}
-              productName={name}
-              price={Number(price)}
-              quantity={Number(quantity)}
+              // imgSrc={`https://${imgSrc}`}
+              // productName={name}
+              // price={Number(price)}
+              // quantity={Number(quantity)}
             />
           );
         })}

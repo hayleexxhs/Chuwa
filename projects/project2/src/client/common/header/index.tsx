@@ -23,14 +23,20 @@ const Header = () => {
     />
   );
 
-  const [isShowCart, setIsShowCart] = useState(false);
   const user = useSelector((state: RootState) => state.user);
   const [open, setOpen] = useState(false);
   const onClose = () => {
     setOpen(false);
   };
 
-  const [discount, setDiscount] = useState(20);
+  const [discount, setDiscount] = useState(0);
+  const [discountCode, setDiscountCode] = useState("");
+
+  const applyDiscount = () => {
+    if (discountCode === "20 DOLLAR OFF") {
+      setDiscount(20);
+    }
+  };
 
   return (
     <>
@@ -79,10 +85,12 @@ const Header = () => {
             <span>Apply Discount Code</span>
             <Row>
               <Col span={18}>
-                <Input></Input>
+                <Input
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                ></Input>
               </Col>
               <Col span={6}>
-                <Button>Apply</Button>
+                <Button onClick={applyDiscount}>Apply</Button>
               </Col>
             </Row>
           </div>

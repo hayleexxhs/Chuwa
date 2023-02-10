@@ -8,39 +8,25 @@ import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
 
 interface IProps {
   id: string;
-  imgSrc: string;
-  productName: string;
-  price: number;
-  quantity: number;
   setIsShowDetail: (isShow: boolean) => void;
   setDetailId: (id: string) => void;
 }
 
 const ProductCard = (props: IProps) => {
-  const {
-    id,
-    imgSrc,
-    productName,
-    price,
-    quantity,
-    setIsShowDetail,
-    setDetailId,
-  } = props;
+  const { id, setIsShowDetail, setDetailId } = props;
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-
-  const [quantityInCart, setQuantityInCart] = useState(quantity);
+  const products = useSelector((state: RootState) => state.products);
+  const pd = products.filter((p) => p.id === id)[0];
 
   const handleAddToCart = () => {
-    setQuantityInCart(quantityInCart + 1);
     addOne(dispatch)(id);
-    addOneUser(dispatch)({ id: id, price: price });
+    addOneUser(dispatch)({ id: id, price: pd.price });
   };
 
   const handleMinus = () => {
-    setQuantityInCart(quantityInCart - 1);
     minusOne(dispatch)(id);
-    minusOneUser(dispatch)({ id: id, price: price });
+    minusOneUser(dispatch)({ id: id, price: pd.price });
   };
 
   const addtoCart = (
@@ -51,7 +37,7 @@ const ProductCard = (props: IProps) => {
             <MinusOutlined />
           </a>
         </Col>
-        <Col span={8}>{quantityInCart}</Col>
+        <Col span={8}>{pd.quantity}</Col>
         <Col span={8}>
           <a style={{ color: "white" }} onClick={handleAddToCart}>
             <PlusOutlined />
@@ -70,7 +56,7 @@ const ProductCard = (props: IProps) => {
         }}
       >
         <Card className="product-card">
-          <img src={imgSrc} />
+          <img src={`https://${pd.imgSrc}`} />
           <div
             className="product-name"
             onClick={() => {
@@ -79,12 +65,12 @@ const ProductCard = (props: IProps) => {
               setIsShowDetail(true);
             }}
           >
-            {productName}
+            {pd.name}
           </div>
-          <div className="product-price">{`$${price}`}</div>
+          <div className="product-price">{`$${pd.price}`}</div>
           <Row>
             <Col className="product-gutter-left" span={12}>
-              {quantityInCart === 0 ? (
+              {pd.quantity === 0 ? (
                 <Button
                   className="product-add-button"
                   onClick={handleAddToCart}

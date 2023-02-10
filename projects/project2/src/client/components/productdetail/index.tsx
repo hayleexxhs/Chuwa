@@ -1,8 +1,9 @@
 import { Col, Row, Button, Image } from "antd";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { RootState } from "../../store";
+import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
 
 import "./index.css";
 import { rootReducer } from "../../reducers";
@@ -14,25 +15,33 @@ interface IProps {
 const ProductDetail = ({ id }: IProps) => {
   // const [productData, setProductData] = useState([]);
   console.log(id);
+  const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
   const user = useSelector((state: RootState) => state.user);
 
   const pd = products.filter((p) => p.id === id)[0];
-  // console.log(pd);
 
-  // const [quantity, setQuantity] = useState(0);
+  const handleAddToCart = () => {
+    addOne(dispatch)(id);
+    addOneUser(dispatch)({ id: id, price: pd.price });
+  };
+
+  const handleMinus = () => {
+    minusOne(dispatch)(id);
+    minusOneUser(dispatch)({ id: id, price: pd.price });
+  };
 
   const addtoCart = (
-    <button disabled className="product-add-button" style={{ height: 33 }}>
+    <button disabled className="product-add-button" style={{ height: 34 }}>
       <Row>
         <Col span={8}>
-          <a style={{ color: "white" }}>
+          <a style={{ color: "white" }} onClick={handleMinus}>
             <MinusOutlined />
           </a>
         </Col>
         <Col span={8}>{pd.quantity}</Col>
         <Col span={8}>
-          <a style={{ color: "white" }}>
+          <a style={{ color: "white" }} onClick={handleAddToCart}>
             <PlusOutlined />
           </a>
         </Col>
@@ -61,7 +70,12 @@ const ProductDetail = ({ id }: IProps) => {
             <Row>
               <Col className="" span={4}>
                 {pd.quantity === 0 ? (
-                  <Button className="product-add-button">Add</Button>
+                  <Button
+                    className="product-add-button"
+                    onClick={handleAddToCart}
+                  >
+                    Add
+                  </Button>
                 ) : (
                   addtoCart
                 )}

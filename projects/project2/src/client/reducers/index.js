@@ -97,7 +97,7 @@ export const userReducer = (
       }
       return {
         ...state,
-        totPrice: state.totPrice + payload.price,
+        totPrice: state.totPrice + Number(payload.price),
         quantity: state.quantity + 1,
         cart: newCart,
       };
@@ -110,7 +110,7 @@ export const userReducer = (
         .filter((pd) => pd.quantity > 0);
       return {
         ...state,
-        totPrice: state.totPrice - payload.price,
+        totPrice: state.totPrice - Number(payload.price),
         quantity: state.quantity - 1,
         cart: newCart2,
       };
