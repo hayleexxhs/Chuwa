@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { Button, Row, Col, Form, Input, Alert } from "antd";
 import { SIGNIN_FORM } from "../../content/form/signin";
 import { signinApi } from "../../api/userApi";
+
+import { initUser } from "../../actions";
 
 import "./index.css";
 
@@ -16,6 +20,9 @@ const Signin = ({
 
   const [errorVisible, setErrorVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   handleTitleText(SIGNIN_FORM.TITLE);
 
@@ -41,6 +48,14 @@ const Signin = ({
         );
       } else {
         handleOnSignin();
+        initUser(dispatch)({
+          id: resJson.user.id,
+          userType: resJson.user.userType,
+          quantity: resJson.user.quantity,
+          totPrice: resJson.user.totPrice,
+          cart: resJson.user.cart,
+        });
+        console.log(`after reducer: ${user.userType}`);
       }
     }
   };

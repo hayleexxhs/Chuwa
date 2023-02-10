@@ -1,12 +1,16 @@
 import React from "react";
-import "./index.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { Col, Row, Input, Space } from "antd";
 import {
   SearchOutlined,
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+
 import Home from "../../components/home";
+
+import "./index.css";
 
 const Header = () => {
   const suffix = (
@@ -17,6 +21,8 @@ const Header = () => {
       }}
     />
   );
+
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <>
@@ -41,7 +47,7 @@ const Header = () => {
               <a>
                 <ShoppingCartOutlined style={{ fontSize: 28 }} />
               </a>
-              <span>$0.00</span>
+              <span>{`$${user.totPrice.toFixed(2)}`}</span>
             </Space>
           </Col>
         </Row>

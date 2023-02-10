@@ -62,6 +62,7 @@ app.post("/api/signin", async (req, res) => {
         res.json({
           message: "succeed",
           status: "200",
+          user: findUserByEmail[0],
         });
         return;
       }

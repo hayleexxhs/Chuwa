@@ -1,33 +1,25 @@
 import { Col, Row, Button, Image } from "antd";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { RootState } from "../../store";
 
-import { getProductDetailApi } from "../../api/productApi";
 import "./index.css";
+import { rootReducer } from "../../reducers";
 
 interface IProps {
-  pName: string;
+  id: string;
 }
 
-const ProductDetail = ({ pName }: IProps) => {
-  const [productData, setProductData] = useState([]);
+const ProductDetail = ({ id }: IProps) => {
+  // const [productData, setProductData] = useState([]);
+  // const [quantity, setQuantity] = useState(0);
+  console.log(id);
+  const products = useSelector((state: RootState) => state.products);
+  const user = useSelector((state: RootState) => state.user);
 
-  useEffect(() => {
-    async function showProductDetail(pName: string) {
-      try {
-        const response = await getProductDetailApi({ name: pName });
-        const resJson = await response.json();
-        setProductData(resJson);
-      } catch (error) {
-        throw new Error(
-          `Get ProductDetail API error: ${JSON.stringify(error)}`
-        );
-      }
-    }
-    showProductDetail(pName);
-  }, []);
-
-  const [quantity, setQuantity] = useState(0);
+  const pd = products.filter((p) => p.id === id)[0];
+  console.log(pd);
 
   const addtoCart = (
     <button disabled className="product-add-button">
@@ -37,7 +29,7 @@ const ProductDetail = ({ pName }: IProps) => {
             <MinusOutlined />
           </a>
         </Col>
-        <Col span={8}>{quantity}</Col>
+        <Col span={8}>{pd.quantity}</Col>
         <Col span={8}>
           <a style={{ color: "white" }}>
             <PlusOutlined />
@@ -56,23 +48,18 @@ const ProductDetail = ({ pName }: IProps) => {
             <Image
               width={600}
               height={600}
-              src="https://images.evo.com/imgp/700/220021/912632/capita-paradise-snowboard-women-s-2023-.jpg"
+              src={`https://${pd.imgSrc}`}
               preview={false}
             />
           </Col>
           <Col span={12} style={{ padding: "20px" }}>
-            <div className="product-detail-category">Snowboard</div>
-            <div className="product-detail-name">CAPiTA Paradise Snowboard</div>
-            <div className="product-detail-price">$299</div>
-            <div className="product-detail-description">
-              Multitech™ Level 6 DeepSpace™ Silkscreen – The DEEPSPACE™ Design
-              Theory takes advantage of the thickness of a transparent topsheet.
-              Strategically layering ink on multiple levels from the top and the
-              bottom imbues graphics with a sense of life through depth.
-            </div>
+            <div className="product-detail-category">{pd.category}</div>
+            <div className="product-detail-name">{pd.name}</div>
+            <div className="product-detail-price">{`$${pd.price}`}</div>
+            <div className="product-detail-description">{pd.description}</div>
             <Row>
               <Col className="" span={4}>
-                {quantity === 0 ? (
+                {pd.quantity === 0 ? (
                   <button className="product-add-button">Add</button>
                 ) : (
                   addtoCart
@@ -81,7 +68,11 @@ const ProductDetail = ({ pName }: IProps) => {
               <Col className="product-gutter-right" span={4}>
                 <Button
                   className="product-edit-button"
-                  style={{ height: "40px" }}
+                  style={
+                    user.userType === "admin"
+                      ? { display: "visible" }
+                      : { display: "none" }
+                  }
                 >
                   Edit
                 </Button>

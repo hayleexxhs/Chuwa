@@ -2,6 +2,9 @@ import { Button, Row, Col, Card } from "antd";
 import "./index.css";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+// import { showDetail } from "../../actions";
 
 interface IProps {
   id: string;
@@ -9,8 +12,10 @@ interface IProps {
   productName: string;
   price: number;
   quantity: number;
+  // description: string;
+  // category: string;
   setIsShowDetail: (isShow: boolean) => void;
-  setProductName: (pName: string) => void;
+  setDetailId: (id: string) => void;
 }
 
 const ProductCard = (props: IProps) => {
@@ -20,9 +25,13 @@ const ProductCard = (props: IProps) => {
     productName,
     price,
     quantity,
+    // description,
+    // category,
     setIsShowDetail,
-    setProductName,
+    setDetailId,
   } = props;
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   const [quantityInCart, setQuantityInCart] = useState(quantity);
 
@@ -65,8 +74,9 @@ const ProductCard = (props: IProps) => {
           <div
             className="product-name"
             onClick={() => {
+              // showDetail(dispatch)(id);
+              setDetailId(id);
               setIsShowDetail(true);
-              setProductName(productName);
             }}
           >
             {productName}
@@ -86,7 +96,16 @@ const ProductCard = (props: IProps) => {
               )}
             </Col>
             <Col className="product-gutter-right" span={12}>
-              <Button className="product-edit-button">Edit</Button>
+              <Button
+                className="product-edit-button"
+                style={
+                  user.userType === "admin"
+                    ? { display: "visible" }
+                    : { display: "none" }
+                }
+              >
+                Edit
+              </Button>
             </Col>
           </Row>
         </Card>

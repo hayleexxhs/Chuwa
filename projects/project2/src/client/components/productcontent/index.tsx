@@ -9,7 +9,7 @@ const ProductContent = () => {
   const [isShowCreate, setIsShowCreate] = useState(false);
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetail, setIsShowDetail] = useState(false);
-  const [productName, setProductName] = useState(String);
+  const [productId, setProductId] = useState(String);
 
   return (
     <>
@@ -19,12 +19,12 @@ const ProductContent = () => {
           setIsShowCreate={setIsShowCreate}
         />
       ) : isShowDetail ? (
-        <ProductDetail pName={productName} />
+        <ProductDetail id={productId} />
       ) : (
         <Products
           handleShowCreate={setIsShowCreate}
           handleShowDetail={setIsShowDetail}
-          getProductName={setProductName}
+          getDetailId={setProductId}
         />
       )}
     </>

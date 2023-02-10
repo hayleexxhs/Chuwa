@@ -24,14 +24,3 @@ export const editProductApi = async (signupInfo: any) => {
   });
   return response;
 };
-
-export const getProductDetailApi = async (signupInfo: any) => {
-  const response = await fetch("/api/getproductdetail", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(signupInfo),
-  });
-  return response;
-};

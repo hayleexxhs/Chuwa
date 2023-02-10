@@ -9,12 +9,15 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const EDIT_PRODUCT = "EDIT_PRODUCT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const INIT_USER = "INIT_USER";
+export const RESET_USER = "RESET_USER";
+export const SHOW_DETAIL = "SHOW_DETAIL";
 
 export const initUser = (dispatch) => (content) => {
   dispatch({
     type: INIT_USER,
     payload: content,
   });
+  console.log(content);
 };
 
 export const initProduct = (dispatch) => async () => {
@@ -68,3 +71,10 @@ export const addToCart = (dispatch) => (id) => {
     payload: id,
   });
 };
+
+// export const showDetail = (dispatch) => (id) => {
+//   dispatch({
+//     type: SHOW_DETAIL,
+//     payload: id,
+//   });
+// };

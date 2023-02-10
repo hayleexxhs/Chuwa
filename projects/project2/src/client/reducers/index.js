@@ -5,6 +5,9 @@ import {
   EDIT_PRODUCT,
   ADD_TO_CART,
   INIT_PRODUCT,
+  INIT_USER,
+  RESET_USER,
+  SHOW_DETAIL,
 } from "../actions";
 
 export const reducer = (state = [], { type, payload }) => {
@@ -45,16 +48,41 @@ export const reducer = (state = [], { type, payload }) => {
 };
 
 export const userReducer = (
-  state = { usertype: "guest", quantity: 0, totPrice: 0.0, cart: {} },
+  state = {
+    id: "",
+    userType: "admin",
+    quantity: 0,
+    totPrice: 0,
+    cart: {},
+  },
   { type, payload }
 ) => {
   switch (type) {
+    case INIT_USER:
+      console.log(payload.userType);
+      return { ...state, ...payload };
+    case RESET_USER:
+      return {
+        id: "",
+        userType: "guest",
+        quantity: 0,
+        totPrice: 0,
+        cart: {},
+      };
     default:
       return state;
   }
 };
 
+// export const detailReducer = (state = {}, { type, payload }) => {
+//   switch (type) {
+//     case SHOW_DETAIL:
+//       return { ...state, ...payload };
+//   }
+// };
+
 export const rootReducer = combineReducers({
   products: reducer,
   user: userReducer,
+  //   detail: detailReducer,
 });
