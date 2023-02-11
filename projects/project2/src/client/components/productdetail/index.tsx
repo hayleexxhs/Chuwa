@@ -1,7 +1,7 @@
 import { Col, Row, Button, Image } from "antd";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined, CloseOutlined } from "@ant-design/icons";
 import { RootState } from "../../store";
 import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
 
@@ -50,9 +50,11 @@ const ProductDetail = ({ id }: IProps) => {
 
   return (
     <>
-      <div></div>
       <div className="products-title">Product Detail</div>
       <div className="products-content">
+        <a onClick={() => {}}>
+          <CloseOutlined />
+        </a>
         <Row>
           <Col span={12} style={{ padding: "20px" }}>
             <Image
