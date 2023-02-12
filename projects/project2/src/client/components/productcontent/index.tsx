@@ -19,7 +19,7 @@ const ProductContent = () => {
           setIsShowCreate={setIsShowCreate}
         />
       ) : isShowDetail ? (
-        <ProductDetail id={productId} />
+        <ProductDetail id={productId} handleShowDetail={setIsShowDetail} />
       ) : (
         <Products
           handleShowCreate={setIsShowCreate}

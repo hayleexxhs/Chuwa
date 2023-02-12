@@ -9,9 +9,10 @@ import "./index.css";
 
 interface IProps {
   id: string;
+  handleShowDetail: (isShow: boolean) => void;
 }
 
-const ProductDetail = ({ id }: IProps) => {
+const ProductDetail = ({ id, handleShowDetail }: IProps) => {
   // const [productData, setProductData] = useState([]);
   console.log(id);
   const dispatch = useDispatch();
@@ -52,7 +53,11 @@ const ProductDetail = ({ id }: IProps) => {
     <>
       <div className="products-title">Product Detail</div>
       <div className="products-content">
-        <a onClick={() => {}}>
+        <a
+          onClick={() => {
+            handleShowDetail(false);
+          }}
+        >
           <CloseOutlined />
         </a>
         <Row>
