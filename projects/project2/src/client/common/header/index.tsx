@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { Col, Row, Input, Space, Drawer, List, Button } from "antd";
+import { Col, Row, Input, Space, Drawer, List, Button, Badge } from "antd";
 import {
   SearchOutlined,
   UserOutlined,
@@ -63,7 +63,11 @@ const Header = () => {
                   setOpen(true);
                 }}
               >
-                <ShoppingCartOutlined style={{ fontSize: 28 }} />
+                <Badge size="small" count={user.quantity}>
+                  <ShoppingCartOutlined
+                    style={{ fontSize: 28, color: "white" }}
+                  />
+                </Badge>
               </a>
               <span>{`$${user.totPrice.toFixed(2)}`}</span>
             </Space>
