@@ -14,6 +14,7 @@ export const RESET_USER = "RESET_USER";
 export const SHOW_DETAIL = "SHOW_DETAIL";
 export const ADD_ONE_USER = "ADD_ONE_USER";
 export const MINUS_ONE_USER = "MINUS_ONE_USER";
+export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 
 export const initUser = (dispatch) => (content) => {
   dispatch({
@@ -74,17 +75,17 @@ export const editProduct = (dispatch) => async (content) => {
   }
 };
 
-export const addOne = (dispatch) => (id) => {
+export const addOne = (dispatch) => (content) => {
   dispatch({
     type: ADD_ONE,
-    payload: id,
+    payload: content,
   });
 };
 
-export const minusOne = (dispatch) => (id) => {
+export const minusOne = (dispatch) => (content) => {
   dispatch({
     type: MINUS_ONE,
-    payload: id,
+    payload: content,
   });
 };
 
@@ -98,6 +99,13 @@ export const addOneUser = (dispatch) => (content) => {
 export const minusOneUser = (dispatch) => (content) => {
   dispatch({
     type: MINUS_ONE_USER,
+    payload: content,
+  });
+};
+
+export const removeProduct = (dispatch) => (content) => {
+  dispatch({
+    type: REMOVE_PRODUCT,
     payload: content,
   });
 };

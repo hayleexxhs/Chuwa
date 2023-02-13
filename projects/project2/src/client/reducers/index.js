@@ -10,6 +10,7 @@ import {
   RESET_USER,
   ADD_ONE_USER,
   MINUS_ONE_USER,
+  REMOVE_PRODUCT,
 } from "../actions";
 
 export const reducer = (state = [], { type, payload }) => {
@@ -38,7 +39,7 @@ export const reducer = (state = [], { type, payload }) => {
 
     case ADD_ONE:
       return state.map((product) => {
-        if (payload != product.id) {
+        if (payload.id != product.id) {
           return product;
         }
         return { ...product, quantity: product.quantity + 1 };
@@ -46,10 +47,16 @@ export const reducer = (state = [], { type, payload }) => {
 
     case MINUS_ONE:
       return state.map((product) => {
-        if (payload != product.id) {
+        if (payload.id != product.id) {
           return product;
         }
         return { ...product, quantity: product.quantity - 1 };
+      });
+
+    case REMOVE_PRODUCT:
+      return state.map((product) => {
+        if (product.id !== payload.id) return product;
+        return { ...product, quantity: 0 };
       });
 
     default:
@@ -85,7 +92,7 @@ export const userReducer = (
         totPrice: 0,
         cart: [],
       };
-    case ADD_ONE_USER:
+    case ADD_ONE:
       let newCart = [];
       if (state.cart.find((pd) => pd.id === payload.id) !== undefined) {
         newCart = state.cart.map((pd) => {
@@ -101,7 +108,7 @@ export const userReducer = (
         quantity: state.quantity + 1,
         cart: newCart,
       };
-    case MINUS_ONE_USER:
+    case MINUS_ONE:
       const newCart2 = state.cart
         .map((pd) => {
           if (pd.id !== payload.id) return pd;
@@ -114,6 +121,19 @@ export const userReducer = (
         quantity: state.quantity - 1,
         cart: newCart2,
       };
+
+    case REMOVE_PRODUCT:
+      console.log("remove product");
+      const newCart3 = state.cart.filter((pd) => {
+        return pd.id !== payload.id;
+      });
+      return {
+        ...state,
+        cart: newCart3,
+        totPrice: state.totPrice - payload.quantity * Number(payload.price),
+        quantity: state.quantity - payload.quantity,
+      };
+
     default:
       return state;
   }

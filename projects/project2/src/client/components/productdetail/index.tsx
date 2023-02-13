@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MinusOutlined, PlusOutlined, CloseOutlined } from "@ant-design/icons";
 import { RootState } from "../../store";
-import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
+import { addOne, minusOne } from "../../actions";
 
 import "./index.css";
 
@@ -22,13 +22,11 @@ const ProductDetail = ({ id, handleShowDetail }: IProps) => {
   const pd = products.filter((p) => p.id === id)[0];
 
   const handleAddToCart = () => {
-    addOne(dispatch)(id);
-    addOneUser(dispatch)({ id: id, price: pd.price });
+    addOne(dispatch)({ id: id, price: pd.price });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)(id);
-    minusOneUser(dispatch)({ id: id, price: pd.price });
+    minusOne(dispatch)({ id: id, price: pd.price });
   };
 
   const addtoCart = (

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, Image, Input, List, Drawer } from "antd";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { RootState } from "../../store";
-import { addOne, minusOne, addOneUser, minusOneUser } from "../../actions";
+import { addOne, minusOne, removeProduct } from "../../actions";
 
 interface IProps {
   id: string;
@@ -16,13 +16,11 @@ const CartItem = ({ id }: IProps) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    addOne(dispatch)(id);
-    addOneUser(dispatch)({ id: id, price: pd.price });
+    addOne(dispatch)({ id: id, price: pd.price });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)(id);
-    minusOneUser(dispatch)({ id: id, price: pd.price });
+    minusOne(dispatch)({ id: id, price: pd.price });
   };
 
   const addtoCart = (
@@ -69,7 +67,17 @@ const CartItem = ({ id }: IProps) => {
             )}
           </Col>
           <Col>
-            <a>Remove</a>
+            <a
+              onClick={() => {
+                removeProduct(dispatch)({
+                  id: pd.id,
+                  price: pd.price,
+                  quantity: pd.quantity,
+                });
+              }}
+            >
+              Remove
+            </a>
           </Col>
         </Row>
       </Col>
