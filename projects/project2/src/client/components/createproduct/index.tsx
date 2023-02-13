@@ -1,49 +1,37 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, Form, Input, Select, Image } from "antd";
 import { PictureFilled } from "@ant-design/icons";
 import { addProduct, editProduct } from "../../actions";
-import { addProductApi, editProductApi } from "../../api/productApi";
+import { RootState } from "../../store";
 
 import "./index.css";
 
 interface Iprops {
   title: string;
-  pName?: string;
-  pDiscription?: string;
-  pPrice?: string;
-  pQuantity?: string;
-  imglink?: string;
+  id?: string;
   setIsShowCreate: (isShow: boolean) => void;
 }
 
 const CreateProduct = (props: Iprops) => {
-  const {
-    title,
-    pName,
-    pDiscription,
-    pPrice,
-    pQuantity,
-    imglink,
-    setIsShowCreate = () => {},
-  } = props;
-
+  const { title, id, setIsShowCreate = () => {} } = props;
   const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.products);
+  const pd = products.filter((p) => p.id === id)[0];
+  // if (pd) console.log(pd);
+
+  const [productName, setProductName] = useState(pd ? pd.name : String);
+  const [productdescription, setProductDescription] = useState(
+    pd ? pd.description : String
+  );
+  const [productCategory, setProductCategory] = useState(
+    pd ? pd.category : String
+  );
+  const [price, setPrice] = useState(pd ? pd.price : String);
+  const [quantity, setQuantity] = useState(pd ? pd.quantityInStock : String);
+  const [imgSrc, setImgSrc] = useState(pd ? pd.imgSrc : String);
 
   let imgSrcImput = "";
-
-  const [productName, setProductName] = useState(String);
-  const [productdescription, setProductDescription] = useState(String);
-  const [productCategory, setProductCategory] = useState(String);
-  const [price, setPrice] = useState(String);
-  const [quantity, setQuantity] = useState(String);
-  const [imgSrc, setImgSrc] = useState(String);
-
-  if (pName) setProductName(pName);
-  if (pDiscription) setProductDescription(pDiscription);
-  if (pPrice) setPrice(pPrice);
-  if (pQuantity) setQuantity(pQuantity);
-  if (imglink) setImgSrc(imglink);
 
   const categoryOptions = [
     { value: "snowboards", label: "Snowboards" },
@@ -72,25 +60,6 @@ const CreateProduct = (props: Iprops) => {
       imgSrc: imgSrc,
     });
     setIsShowCreate(false);
-    // const response = await addProductApi({
-    //   name: productName,
-    //   description: productdescription,
-    //   category: productCategory,
-    //   price: price,
-    //   quantityInStock: quantity,
-    //   imgSrc: imgSrc,
-    // });
-    // const resJson = await response.json();
-    // if (resJson.status !== "200") {
-    //   // setErrorMessage(resJson.message);
-    //   // setErrorVisible(true);
-    //   throw new Error(
-    //     `Signup API response status error: ${JSON.stringify(resJson.message)}`
-    //   );
-    // } else {
-    //   console.log("Add Product Succeed");
-    //   setIsShowCreate(false);
-    // }
   };
 
   const handleEditProduct = () => {};
@@ -100,11 +69,24 @@ const CreateProduct = (props: Iprops) => {
       <div className="div1">
         <div className="products-title">{title}</div>
         <div className="products-create-content">
-          <Form layout="vertical">
+          <Form
+            layout="vertical"
+            initialValues={
+              pd
+                ? {
+                    productname: pd.name,
+                    productdescription: pd.description,
+                    productcategory: pd.category,
+                    productprice: pd.price,
+                    productinstock: pd.quantityInStock,
+                    productimg: pd.imgSrc,
+                  }
+                : {}
+            }
+          >
             <Form.Item name="productname" label="Product Name">
               <Input
                 size="large"
-                value={productName}
                 onChange={(e) => setProductName(e.target.value)}
               />
             </Form.Item>
@@ -119,7 +101,6 @@ const CreateProduct = (props: Iprops) => {
                 <Form.Item name="productcategory" label="Category">
                   <Select
                     size="large"
-                    value={productCategory}
                     options={categoryOptions}
                     onChange={(e) => {
                       console.log(e);

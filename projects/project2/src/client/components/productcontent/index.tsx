@@ -16,6 +16,7 @@ const ProductContent = () => {
       {isShowCreate || isShowEdit ? (
         <CreateProduct
           title={isShowCreate ? "Create Product" : "Edit Product"}
+          id={productId}
           setIsShowCreate={setIsShowCreate}
         />
       ) : isShowDetail ? (
@@ -23,6 +24,7 @@ const ProductContent = () => {
       ) : (
         <Products
           handleShowCreate={setIsShowCreate}
+          handleShowEdit={setIsShowEdit}
           handleShowDetail={setIsShowDetail}
           getDetailId={setProductId}
         />

@@ -8,12 +8,13 @@ import { addOne, minusOne } from "../../actions";
 
 interface IProps {
   id: string;
+  setIsShowEdit: (isShow: boolean) => void;
   setIsShowDetail: (isShow: boolean) => void;
   setDetailId: (id: string) => void;
 }
 
 const ProductCard = (props: IProps) => {
-  const { id, setIsShowDetail, setDetailId } = props;
+  const { id, setIsShowEdit, setIsShowDetail, setDetailId } = props;
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
@@ -58,7 +59,6 @@ const ProductCard = (props: IProps) => {
           <div
             className="product-name"
             onClick={() => {
-              // showDetail(dispatch)(id);
               setDetailId(id);
               setIsShowDetail(true);
             }}
@@ -82,6 +82,10 @@ const ProductCard = (props: IProps) => {
             <Col className="product-gutter-right" span={12}>
               <Button
                 className="product-edit-button"
+                onClick={() => {
+                  setDetailId(id);
+                  setIsShowEdit(true);
+                }}
                 style={
                   user.userType === "admin"
                     ? { display: "visible" }

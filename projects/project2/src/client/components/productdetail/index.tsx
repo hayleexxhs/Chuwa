@@ -13,7 +13,6 @@ interface IProps {
 }
 
 const ProductDetail = ({ id, handleShowDetail }: IProps) => {
-  // const [productData, setProductData] = useState([]);
   console.log(id);
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);

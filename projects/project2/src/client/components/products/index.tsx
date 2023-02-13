@@ -7,6 +7,7 @@ import "./index.css";
 
 const Products = ({
   handleShowCreate = (isShow: boolean) => {},
+  handleShowEdit = (isShow: boolean) => {},
   handleShowDetail = (isShow: boolean) => {},
   getDetailId = (id: string) => {},
 }) => {
@@ -54,6 +55,7 @@ const Products = ({
           return (
             <ProductCard
               id={id}
+              setIsShowEdit={handleShowEdit}
               setIsShowDetail={handleShowDetail}
               setDetailId={getDetailId}
               // imgSrc={`https://${imgSrc}`}

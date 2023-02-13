@@ -67,7 +67,7 @@ export const reducer = (state = [], { type, payload }) => {
 export const userReducer = (
   state = {
     id: "",
-    userType: "guest",
+    userType: "admin",
     quantity: 0,
     totPrice: 0,
     cart: [],
