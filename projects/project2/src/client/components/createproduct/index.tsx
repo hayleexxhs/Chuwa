@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, Form, Input, Select, Image } from "antd";
-import { PictureFilled } from "@ant-design/icons";
+import { PictureFilled, CloseOutlined } from "@ant-design/icons";
 import { addProduct, editProduct } from "../../actions";
 import { RootState } from "../../store";
 
@@ -11,10 +11,16 @@ interface Iprops {
   title: string;
   id?: string;
   setIsShowCreate: (isShow: boolean) => void;
+  setIsShowEdit: (isShow: boolean) => void;
 }
 
 const CreateProduct = (props: Iprops) => {
-  const { title, id, setIsShowCreate = () => {} } = props;
+  const {
+    title,
+    id,
+    setIsShowCreate = () => {},
+    setIsShowEdit = () => {},
+  } = props;
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
   const pd = products.filter((p) => p.id === id)[0];
@@ -69,6 +75,15 @@ const CreateProduct = (props: Iprops) => {
       <div className="div1">
         <div className="products-title">{title}</div>
         <div className="products-create-content">
+          <a
+            onClick={() => {
+              title === "Create Product"
+                ? setIsShowCreate(false)
+                : setIsShowEdit(false);
+            }}
+          >
+            <CloseOutlined />
+          </a>
           <Form
             layout="vertical"
             initialValues={

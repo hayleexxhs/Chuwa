@@ -10,9 +10,10 @@ import "./index.css";
 interface IProps {
   id: string;
   handleShowDetail: (isShow: boolean) => void;
+  handleShowEdit: (isShow: boolean) => void;
 }
 
-const ProductDetail = ({ id, handleShowDetail }: IProps) => {
+const ProductDetail = ({ id, handleShowDetail, handleShowEdit }: IProps) => {
   console.log(id);
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
@@ -87,6 +88,9 @@ const ProductDetail = ({ id, handleShowDetail }: IProps) => {
               <Col className="product-gutter-right" span={4}>
                 <Button
                   className="product-edit-button"
+                  onClick={() => {
+                    handleShowEdit(true);
+                  }}
                   style={
                     user.userType === "admin"
                       ? { display: "visible" }
