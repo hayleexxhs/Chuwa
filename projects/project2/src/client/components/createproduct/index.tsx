@@ -68,7 +68,18 @@ const CreateProduct = (props: Iprops) => {
     setIsShowCreate(false);
   };
 
-  const handleEditProduct = () => {};
+  const handleEditProduct = () => {
+    editProduct(dispatch)({
+      id: id,
+      name: productName,
+      description: productdescription,
+      category: productCategory,
+      price: price,
+      quantityInStock: quantity,
+      imgSrc: imgSrc,
+    });
+    setIsShowEdit(false);
+  };
 
   return (
     <>

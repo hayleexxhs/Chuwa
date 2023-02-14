@@ -64,11 +64,11 @@ export const addProduct = (dispatch) => async (content) => {
 export const editProduct = (dispatch) => async (content) => {
   try {
     const response = await editProductApi(content);
-    const { message, newProduct } = await response.json();
+    const { message } = await response.json();
     console.log(message);
     dispatch({
       type: EDIT_PRODUCT,
-      payload: { ...newProduct },
+      payload: content,
     });
   } catch (error) {
     console.log(error);
@@ -85,20 +85,6 @@ export const addOne = (dispatch) => (content) => {
 export const minusOne = (dispatch) => (content) => {
   dispatch({
     type: MINUS_ONE,
-    payload: content,
-  });
-};
-
-export const addOneUser = (dispatch) => (content) => {
-  dispatch({
-    type: ADD_ONE_USER,
-    payload: content,
-  });
-};
-
-export const minusOneUser = (dispatch) => (content) => {
-  dispatch({
-    type: MINUS_ONE_USER,
     payload: content,
   });
 };

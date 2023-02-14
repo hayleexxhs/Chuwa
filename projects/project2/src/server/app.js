@@ -217,6 +217,54 @@ app.post("/api/addproduct", async (req, res) => {
     res.status("400").json({
       message: "Add product failed",
     });
+    return;
+  }
+  //error handling
+  console.log("Input is not valid");
+  res.status(404).json({
+    error: "failed",
+    message: "Input is not valid",
+  });
+  return;
+});
+
+//Edit Product
+app.put("/api/editproduct", async (req, res) => {
+  console.log("Backend --Edit Product");
+  console.log(req.body);
+
+  //backend validation
+  if (validateProductInfo(req)) {
+    const id = req.body.id;
+    const queryResult = await Product.findOne({ id });
+    const { modifiedCount } = await queryResult.updateOne({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      quantityInStock: req.body.quantityInStock,
+      imgSrc: req.body.imgSrc,
+    });
+
+    if (modifiedCount) {
+      res.status("200").json({
+        message: "succeed",
+        // newProduct: {
+        //   id: addNewProduct.id,
+        //   name: addNewProduct.name,
+        //   description: addNewProduct.description,
+        //   category: addNewProduct.category,
+        //   price: addNewProduct.price,
+        //   quantityInStock: addNewProduct.quantityInStock,
+        //   imgSrc: addNewProduct.imgSrc,
+        // },
+      });
+      return;
+    }
+    res.status("400").json({
+      message: "Edit product failed",
+    });
+    return;
   }
   //error handling
   console.log("Input is not valid");
