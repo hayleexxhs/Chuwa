@@ -51,7 +51,7 @@ const ProductCard = (props: IProps) => {
       <div
         style={{
           margin: "9px",
-          width: "240px",
+          minWidth: "240px",
         }}
       >
         <Card className="product-card">

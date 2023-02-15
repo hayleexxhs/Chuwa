@@ -210,6 +210,7 @@ app.post("/api/addproduct", async (req, res) => {
           price: addNewProduct.price,
           quantityInStock: addNewProduct.quantityInStock,
           imgSrc: addNewProduct.imgSrc,
+          quantity: 0,
         },
       });
       return;

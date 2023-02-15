@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Button, Row, Col, Select } from "antd";
+import { Button, Row, Col, Select, List } from "antd";
 import ProductCard from "../../common/productCard";
 import { RootState } from "../../store";
 
@@ -20,9 +21,35 @@ const Products = ({
   const products = useSelector((state: RootState) => state.products);
   const user = useSelector((state: RootState) => state.user);
 
+  // console.log(products.reverse());
+
+  let pdata = products
+    .sort((a, b) => a.price - b.price)
+    .map(({ id }) => ({
+      id: id,
+    }));
+
+  console.log(pdata);
+
+  const [data, setData] = useState(pdata);
+  console.log(data);
+
   const handleOnclickAdd = () => {
     handleShowCreate(true);
   };
+
+  // const handleSortOrderChange = (value: string) => {
+  //   if (value === "lastadded") {
+  //     useEffect(()=>{
+  //       data =
+  //     })
+  //     setData(products.sort((a, b) => a.price - b.price));
+  //   } else if (value === "lowtohigh") {
+  //     setData(products.reverse());
+  //   } else {
+  //     setData(products.sort((a, b) => b.price - a.price));
+  //   }
+  // };
 
   return (
     <>
@@ -51,20 +78,34 @@ const Products = ({
         </Col>
       </Row>
       <div className="products-content">
-        {products.map(({ id, imgSrc, name, price, quantity }: any) => {
-          return (
-            <ProductCard
-              id={id}
-              setIsShowEdit={handleShowEdit}
-              setIsShowDetail={handleShowDetail}
-              setDetailId={getDetailId}
-              // imgSrc={`https://${imgSrc}`}
-              // productName={name}
-              // price={Number(price)}
-              // quantity={Number(quantity)}
-            />
-          );
-        })}
+        <List
+          grid={{
+            gutter: 8,
+            xs: 1,
+            sm: 1,
+            md: 2,
+            lg: 3,
+            xl: 4,
+            xxl: 5,
+          }}
+          dataSource={data}
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 10,
+          }}
+          renderItem={(item) => (
+            <List.Item>
+              <ProductCard
+                id={item.id}
+                setIsShowEdit={handleShowEdit}
+                setIsShowDetail={handleShowDetail}
+                setDetailId={getDetailId}
+              />
+            </List.Item>
+          )}
+        ></List>
       </div>
     </>
   );
