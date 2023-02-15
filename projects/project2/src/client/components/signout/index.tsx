@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { signoutApi } from "../../api/userApi";
 import { resetUser } from "../../actions";
 
@@ -7,7 +8,10 @@ import "./index.css";
 
 const Signout = ({ handleOnSignout = () => {} }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+
   const handleSignout = async () => {
+    console.log("On Click Sign Out");
     // handleOnSignout();
     try {
       const response = await signoutApi();
@@ -18,6 +22,7 @@ const Signout = ({ handleOnSignout = () => {} }) => {
       } else {
         handleOnSignout();
         resetUser(dispatch)();
+        console.log(user);
       }
     } catch (error) {
       throw new Error(`Logout API error: ${JSON.stringify(error)}`);
@@ -26,7 +31,7 @@ const Signout = ({ handleOnSignout = () => {} }) => {
 
   return (
     <>
-      <a onClick={handleSignout}>Sign Out</a>{" "}
+      <a onClick={handleSignout}>Sign Out</a>
     </>
   );
 };

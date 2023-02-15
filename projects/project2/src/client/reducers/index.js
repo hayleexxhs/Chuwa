@@ -8,8 +8,6 @@ import {
   INIT_PRODUCT,
   INIT_USER,
   RESET_USER,
-  ADD_ONE_USER,
-  MINUS_ONE_USER,
   REMOVE_PRODUCT,
 } from "../actions";
 
@@ -76,14 +74,8 @@ export const userReducer = (
 ) => {
   switch (type) {
     case INIT_USER:
-      return {
-        ...state,
-        id: payload.id,
-        userType: payload.userType,
-        quantity: payload.quantity,
-        totPrice: payload.totPrice,
-        cart: payload.cart,
-      };
+      console.log(payload.userType);
+      return { ...payload };
     case RESET_USER:
       return {
         id: "",

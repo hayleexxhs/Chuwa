@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../common/modal";
-
 import Signin from "../signin";
 import Signup from "../signup";
 import ForgotPassword from "../forgotpassword";
@@ -8,7 +7,6 @@ import ForgotPassword from "../forgotpassword";
 import "./index.css";
 
 const SignContent = ({ handleOnSignin = () => {} }) => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
   const [visible, setVisible] = useState(false);
   const [titleText, setTitleText] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
@@ -40,7 +38,7 @@ const SignContent = ({ handleOnSignin = () => {} }) => {
 
   return (
     <>
-      <a onClick={onClickSignIn}>{isSignedIn ? "Sign Out" : "Sign In"}</a>
+      <a onClick={onClickSignIn}>{"Sign In"}</a>
       <Modal
         width={600}
         titleText={titleText}

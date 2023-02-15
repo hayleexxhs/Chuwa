@@ -55,7 +55,6 @@ const Signin = ({
           cart: resJson.user.cart,
         });
         handleOnSignin();
-        console.log(`after reducer: ${user.userType}`);
       }
     }
   };
