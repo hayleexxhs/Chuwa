@@ -23,16 +23,32 @@ const Products = ({
 
   // console.log(products.reverse());
 
-  let pdata = products
-    .sort((a, b) => a.price - b.price)
-    .map(({ id }) => ({
-      id: id,
-    }));
+  const [data, setData] = useState(products);
 
-  console.log(pdata);
+  // let pdata = products
+  //   .sort((a, b) => a.price - b.price)
+  //   .map(({ id }) => ({
+  //     id: id,
+  //   }));
 
-  const [data, setData] = useState(pdata);
-  console.log(data);
+  // console.log(pdata);
+
+  const init = () => {
+    setData(
+      products
+        .sort((a, b) => a.price - b.price)
+        .map(({ id }) => ({
+          id: id,
+        }))
+    );
+  };
+
+  // console.log(data);
+
+  useEffect(() => {
+    init();
+    //console.log(data);
+  }, [data]);
 
   const handleOnclickAdd = () => {
     handleShowCreate(true);
