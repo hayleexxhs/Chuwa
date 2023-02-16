@@ -17,7 +17,7 @@ export const reducer = (state = [], { type, payload }) => {
       return [...payload];
 
     case ADD_PRODUCT:
-      return [...state, { ...payload }];
+      return [{ ...payload }, ...state];
 
     case EDIT_PRODUCT:
       return state.map((product) => {

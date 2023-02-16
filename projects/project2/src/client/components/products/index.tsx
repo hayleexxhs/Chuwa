@@ -21,51 +21,41 @@ const Products = ({
   const products = useSelector((state: RootState) => state.products);
   const user = useSelector((state: RootState) => state.user);
 
-  // console.log(products.reverse());
+  const [isSetData, setIsSetData] = useState(false);
+  const [data, setData] = useState(
+    products.map(({ id, price }) => ({ id: id, price: price }))
+  );
 
-  const [data, setData] = useState(products);
+  const initdata = products
+    .map(({ id, price }) => ({ id: id, price: price }))
+    .sort((a, b) => a.price - b.price);
 
-  // let pdata = products
-  //   .sort((a, b) => a.price - b.price)
-  //   .map(({ id }) => ({
-  //     id: id,
-  //   }));
-
-  // console.log(pdata);
-
-  const init = () => {
-    setData(
-      products
-        .sort((a, b) => a.price - b.price)
-        .map(({ id }) => ({
-          id: id,
-        }))
-    );
-  };
-
-  // console.log(data);
-
-  useEffect(() => {
-    init();
-    //console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   const handleOnclickAdd = () => {
     handleShowCreate(true);
   };
 
-  // const handleSortOrderChange = (value: string) => {
-  //   if (value === "lastadded") {
-  //     useEffect(()=>{
-  //       data =
-  //     })
-  //     setData(products.sort((a, b) => a.price - b.price));
-  //   } else if (value === "lowtohigh") {
-  //     setData(products.reverse());
-  //   } else {
-  //     setData(products.sort((a, b) => b.price - a.price));
-  //   }
-  // };
+  const handleSortOrderChange = (value: string) => {
+    if (!isSetData) setIsSetData(true);
+    if (value === "lastadded") {
+      setData(products.map(({ id, price }) => ({ id: id, price: price })));
+    } else if (value === "lowtohigh") {
+      setData(
+        products
+          .map(({ id, price }) => ({ id: id, price: price }))
+          .sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setData(
+        products
+          .map(({ id, price }) => ({ id: id, price: price }))
+          .sort((a, b) => b.price - a.price)
+      );
+    }
+  };
 
   return (
     <>
@@ -79,6 +69,7 @@ const Products = ({
             defaultValue={sortOptions[1].value}
             options={sortOptions}
             size={"large"}
+            onChange={handleSortOrderChange}
           ></Select>
           <Button
             className="products-header-button"
@@ -104,7 +95,7 @@ const Products = ({
             xl: 4,
             xxl: 5,
           }}
-          dataSource={data}
+          dataSource={isSetData ? data : initdata}
           pagination={{
             onChange: (page) => {
               console.log(page);

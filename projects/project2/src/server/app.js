@@ -161,7 +161,7 @@ app.post("/api/signout", (req, res) => {
 
 //Show Product
 app.get("/api/showproduct", async (_, res) => {
-  const findProducts = await Product.find({});
+  const findProducts = await (await Product.find({})).reverse();
   const productsList = findProducts.map(
     ({ id, name, description, category, price, quantityInStock, imgSrc }) => {
       return {
