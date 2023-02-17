@@ -60,11 +60,8 @@ export const productReducer = (state = [], { type, payload }) => {
       });
 
     case INIT_CART:
-      console.log(payload);
       return state.map((product) => {
         if (payload.find((item) => item.id === product.id)) {
-          console.log(product.id);
-          console.log(payload.find((item) => item.id === product.id).quantity);
           return {
             ...product,
             quantity: payload.find((item) => item.id === product.id).quantity,
