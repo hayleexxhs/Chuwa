@@ -1,7 +1,7 @@
 import { Button, Row, Col, Card } from "antd";
 import "./index.css";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import { addOne, minusOne } from "../../actions";
@@ -19,6 +19,13 @@ const ProductCard = (props: IProps) => {
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
   const pd = products.filter((p) => p.id === id)[0];
+
+  // const [userType, setUserType] = useState("guest");
+
+  // useEffect(() => {
+  //   setUserType(user.userType);
+  //   console.log(`set userType to ${userType}`);
+  // }, [user.userType]);
 
   const handleAddToCart = () => {
     addOne(dispatch)({ id: id, price: pd.price });
@@ -80,20 +87,17 @@ const ProductCard = (props: IProps) => {
               )}
             </Col>
             <Col className="product-gutter-right" span={12}>
-              <Button
-                className="product-edit-button"
-                onClick={() => {
-                  setDetailId(id);
-                  setIsShowEdit(true);
-                }}
-                style={
-                  user.userType === "admin"
-                    ? { display: "visible" }
-                    : { display: "none" }
-                }
-              >
-                Edit
-              </Button>
+              {user.userType === "admin" && (
+                <Button
+                  className="product-edit-button"
+                  onClick={() => {
+                    setDetailId(id);
+                    setIsShowEdit(true);
+                  }}
+                >
+                  Edit
+                </Button>
+              )}
             </Col>
           </Row>
         </Card>

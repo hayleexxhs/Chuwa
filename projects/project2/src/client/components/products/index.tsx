@@ -71,17 +71,14 @@ const Products = ({
             size={"large"}
             onChange={handleSortOrderChange}
           ></Select>
-          <Button
-            className="products-header-button"
-            onClick={handleOnclickAdd}
-            style={
-              user.userType === "admin"
-                ? { display: "visible" }
-                : { display: "none" }
-            }
-          >
-            Add Product
-          </Button>
+          {user.userType === "admin" && (
+            <Button
+              className="products-header-button"
+              onClick={handleOnclickAdd}
+            >
+              Add Product
+            </Button>
+          )}
         </Col>
       </Row>
       <div className="products-content">
