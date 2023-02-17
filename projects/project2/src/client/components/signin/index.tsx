@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Button, Row, Col, Form, Input, Alert } from "antd";
 import { SIGNIN_FORM } from "../../content/form/signin";
 import { signinApi } from "../../api/userApi";
 
-import { initUser } from "../../actions";
+import { initCart, initUser } from "../../actions";
 
 import "./index.css";
 
@@ -23,6 +23,7 @@ const Signin = ({
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  // const error = useSelector((state: RootState) => state.error);
 
   handleTitleText(SIGNIN_FORM.TITLE);
 
@@ -54,6 +55,7 @@ const Signin = ({
           totPrice: resJson.user.totPrice,
           cart: resJson.user.cart,
         });
+        initCart(dispatch)(resJson.user.cart);
         handleOnSignin();
       }
     }

@@ -9,9 +9,11 @@ import {
   INIT_USER,
   RESET_USER,
   REMOVE_PRODUCT,
+  INIT_CART,
+  RESET_CART,
 } from "../actions";
 
-export const reducer = (state = [], { type, payload }) => {
+export const productReducer = (state = [], { type, payload }) => {
   switch (type) {
     case INIT_PRODUCT:
       return [...payload];
@@ -57,6 +59,25 @@ export const reducer = (state = [], { type, payload }) => {
         return { ...product, quantity: 0 };
       });
 
+    case INIT_CART:
+      console.log(payload);
+      return state.map((product) => {
+        if (payload.find((item) => item.id === product.id)) {
+          console.log(product.id);
+          console.log(payload.find((item) => item.id === product.id).quantity);
+          return {
+            ...product,
+            quantity: payload.find((item) => item.id === product.id).quantity,
+          };
+        }
+        return product;
+      });
+
+    case RESET_CART:
+      return state.map((product) => {
+        return { ...product, quantity: 0 };
+      });
+
     default:
       return state;
   }
@@ -65,7 +86,7 @@ export const reducer = (state = [], { type, payload }) => {
 export const userReducer = (
   state = {
     id: "",
-    userType: "admin",
+    userType: "guest",
     quantity: 0,
     totPrice: 0,
     cart: [],
@@ -74,8 +95,14 @@ export const userReducer = (
 ) => {
   switch (type) {
     case INIT_USER:
-      console.log(payload.userType);
-      return { ...payload };
+      return {
+        ...state,
+        id: payload.id,
+        userType: payload.userType,
+        quantity: payload.quantity,
+        totPrice: payload.totPrice,
+        cart: payload.cart,
+      };
     case RESET_USER:
       return {
         id: "",
@@ -131,7 +158,15 @@ export const userReducer = (
   }
 };
 
+// export const errorReducer = (state = {}, { type, payload }) => {
+//   switch (type) {
+//     case "SET_SIGN_ERROR":
+//       return { ...state, ...payload };
+//   }
+// };
+
 export const rootReducer = combineReducers({
-  products: reducer,
+  products: productReducer,
   user: userReducer,
+  //   error: errorReducer,
 });

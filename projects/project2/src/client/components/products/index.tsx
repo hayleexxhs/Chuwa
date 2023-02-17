@@ -97,9 +97,9 @@ const Products = ({
           }}
           dataSource={isSetData ? data : initdata}
           pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
+            // onChange: (page) => {
+            //   console.log(page);
+            // },
             pageSize: 10,
           }}
           renderItem={(item) => (

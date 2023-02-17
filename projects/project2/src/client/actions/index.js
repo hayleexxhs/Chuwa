@@ -15,13 +15,14 @@ export const SHOW_DETAIL = "SHOW_DETAIL";
 export const ADD_ONE_USER = "ADD_ONE_USER";
 export const MINUS_ONE_USER = "MINUS_ONE_USER";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
+export const INIT_CART = "INIT_CART";
+export const RESET_CART = "RESET_CART";
 
 export const initUser = (dispatch) => (content) => {
   dispatch({
     type: INIT_USER,
     payload: content,
   });
-  console.log(content);
 };
 
 export const resetUser = (dispatch) => () => {
@@ -73,6 +74,19 @@ export const editProduct = (dispatch) => async (content) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const initCart = (dispatch) => (content) => {
+  dispatch({
+    type: INIT_CART,
+    payload: content,
+  });
+};
+
+export const resetCart = (dispatch) => () => {
+  dispatch({
+    type: RESET_CART,
+  });
 };
 
 export const addOne = (dispatch) => (content) => {
