@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { signoutApi } from "../../api/userApi";
-import { resetUser } from "../../actions";
+import { resetUser, resetCart } from "../../actions";
 
 import "./index.css";
 
@@ -22,6 +22,7 @@ const Signout = ({ handleOnSignout = () => {} }) => {
       } else {
         handleOnSignout();
         resetUser(dispatch)();
+        resetCart(dispatch)();
         console.log(user);
       }
     } catch (error) {

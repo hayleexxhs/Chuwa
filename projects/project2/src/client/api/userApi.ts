@@ -1,3 +1,5 @@
+import { info } from "console";
+
 export const getCustomerApi = async () => {
   const response = await fetch("/api/customers", {
     method: "GET",
@@ -8,13 +10,13 @@ export const getCustomerApi = async () => {
   return response;
 };
 
-export const signinApi = async (signinInfo: any) => {
+export const signinApi = async (info: any) => {
   const response = await fetch("/api/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(signinInfo),
+    body: JSON.stringify(info),
   });
   return response;
 };
@@ -26,13 +28,13 @@ export const signoutApi = async () => {
   return response;
 };
 
-export const signupApi = async (signupInfo: any) => {
+export const signupApi = async (info: any) => {
   const response = await fetch("/api/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(signupInfo),
+    body: JSON.stringify(info),
   });
   return response;
 };

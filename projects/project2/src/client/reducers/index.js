@@ -16,6 +16,7 @@ import {
 export const productReducer = (state = [], { type, payload }) => {
   switch (type) {
     case INIT_PRODUCT:
+        console.log("init products");
       return [...payload];
 
     case ADD_PRODUCT:
