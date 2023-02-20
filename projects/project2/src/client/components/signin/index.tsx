@@ -38,6 +38,9 @@ const Signin = ({
       const response = await signinApi({
         email: email,
         password: password,
+        totPrice: user.totPrice,
+        quantity: user.quantity,
+        cart: user.cart,
       });
       const resJson = await response.json();
 

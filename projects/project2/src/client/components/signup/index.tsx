@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { Button, Form, Input, Alert } from "antd";
 import { SIGNUP_FORM } from "../../content/form/signup";
 import { signupApi } from "../../api/userApi";
+
+import { initCart, initUser } from "../../actions";
 
 import "./index.css";
 
@@ -16,6 +20,9 @@ const Signup = ({
   const [errorVisible, setErrorVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+
   const handleErrorClose = () => {
     setErrorVisible(false);
     setErrorMessage("");
@@ -28,6 +35,9 @@ const Signup = ({
       const response = await signupApi({
         email: email,
         password: password,
+        totPrice: user.totPrice,
+        quantity: user.quantity,
+        cart: user.cart,
       });
       const resJson = await response.json();
 
@@ -39,6 +49,14 @@ const Signup = ({
         );
       } else {
         // handleOnSignup();
+        initUser(dispatch)({
+          id: resJson.user.id,
+          userType: resJson.user.userType,
+          quantity: resJson.user.quantity,
+          totPrice: resJson.user.totPrice,
+          cart: resJson.user.cart,
+        });
+        initCart(dispatch)(resJson.user.cart);
       }
     }
   };

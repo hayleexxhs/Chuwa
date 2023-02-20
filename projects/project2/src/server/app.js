@@ -56,13 +56,36 @@ app.post("/api/signin", async (req, res) => {
     const findUserByEmail = await User.find({
       email: req.body.email,
     });
-    console.log(findUserByEmail);
+    // console.log(findUserByEmail);
     if (findUserByEmail.length) {
       if (findUserByEmail[0].password === req.body.password) {
+        const id = findUserByEmail[0].id;
+        const cart = findUserByEmail[0].cart;
+        const arrs = [...req.body.cart, ...cart];
+        let map = new Map();
+        for (let item of arrs) {
+          if (map.has(item.id)) {
+            const newQuantity = map.get(item.id).quantity + item.quantity;
+            const newitem = {
+              id: item.id,
+              quantity: newQuantity,
+            };
+            map.set(item.id, newitem);
+          } else map.set(item.id, item);
+        }
+        let newCart = [...map.values()];
+        const queryResult = await User.findOne({ id });
+        const { modifiedCount } = await queryResult.updateOne({
+          quantity: queryResult.quantity + req.body.quantity,
+          totPrice: Number(queryResult.totPrice) + Number(req.body.totPrice),
+          cart: newCart,
+        });
+        const _user = await User.findOne({ id });
+        console.log(_user);
         res.json({
           message: "succeed",
           status: "200",
-          user: findUserByEmail[0],
+          user: _user,
         });
         return;
       }
@@ -114,9 +137,9 @@ app.post("/api/signup", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       userType: "regular",
-      cart: [],
-      quantity: 0,
-      totPrice: 0,
+      quantity: req.body.quantity,
+      totPrice: req.body.totPrice,
+      cart: req.body.cart,
     });
 
     const addNewUser = await newUser.save();
@@ -124,7 +147,7 @@ app.post("/api/signup", async (req, res) => {
       res.json({
         message: "succeed",
         status: "200",
-        newUser: {
+        user: {
           id: addNewUser.id,
           email: addNewUser.email,
           password: addNewUser.password,
@@ -150,13 +173,21 @@ app.post("/api/signup", async (req, res) => {
 });
 
 //Sign Out
-app.post("/api/signout", (req, res) => {
+app.post("/api/signout", async (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Sign Out");
+  const id = req.body.id;
+  const queryResult = await User.findOne({ id });
+  const { modifiedCount } = await queryResult.updateOne({
+    quantity: req.body.quantity,
+    totPrice: req.body.totPrice.toFixed(2),
+    cart: req.body.cart,
+  });
   res.json({
     message: "succeed",
     status: "200",
   });
+  return;
 });
 
 //Show Product
