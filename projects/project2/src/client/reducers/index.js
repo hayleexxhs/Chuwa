@@ -16,8 +16,18 @@ import {
 export const productReducer = (state = [], { type, payload }) => {
   switch (type) {
     case INIT_PRODUCT:
-        console.log("init products");
-      return [...payload];
+      //   return [...payload];
+      const pd = payload.products.map((product) => {
+        if (payload.user.cart.find((item) => item.id === product.id)) {
+          return {
+            ...product,
+            quantity: payload.user.cart.find((item) => item.id === product.id)
+              .quantity,
+          };
+        }
+        return product;
+      });
+      return [...pd];
 
     case ADD_PRODUCT:
       return [{ ...payload }, ...state];
@@ -83,6 +93,7 @@ export const productReducer = (state = [], { type, payload }) => {
 
 export const userReducer = (
   state = {
+    isLog: false,
     id: "",
     userType: "guest",
     quantity: 0,
@@ -95,6 +106,7 @@ export const userReducer = (
     case INIT_USER:
       return {
         ...state,
+        isLog: true,
         id: payload.id,
         userType: payload.userType,
         quantity: payload.quantity,
@@ -104,6 +116,7 @@ export const userReducer = (
     case RESET_USER:
       return {
         id: "",
+        isLog: false,
         userType: "guest",
         quantity: 0,
         totPrice: 0,

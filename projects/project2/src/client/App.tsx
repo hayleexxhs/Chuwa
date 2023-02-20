@@ -13,7 +13,7 @@ function App() {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    initProduct(dispatch)();
+    initProduct(dispatch)(user);
   }, [dispatch]);
 
   return (

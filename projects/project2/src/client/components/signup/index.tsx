@@ -6,7 +6,7 @@ import { signupApi } from "../../api/userApi";
 import "./index.css";
 
 const Signup = ({
-  handleOnSignup = () => {},
+  // handleOnSignup = () => {},
   handleTitleText = (title: string) => {},
   handleShowSignIn = () => {},
 }) => {
@@ -38,7 +38,7 @@ const Signup = ({
           `Signup API response status error: ${JSON.stringify(resJson.message)}`
         );
       } else {
-        handleOnSignup();
+        // handleOnSignup();
       }
     }
   };

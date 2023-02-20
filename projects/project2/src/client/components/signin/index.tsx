@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Button, Row, Col, Form, Input, Alert } from "antd";
 import { SIGNIN_FORM } from "../../content/form/signin";
+// import { useCookies } from "react-cookie";
 import { signinApi } from "../../api/userApi";
 
 import { initCart, initUser } from "../../actions";
@@ -10,7 +11,7 @@ import { initCart, initUser } from "../../actions";
 import "./index.css";
 
 const Signin = ({
-  handleOnSignin = () => {},
+  // handleOnSignin = () => {},
   handleTitleText = (title: string) => {},
   handleShowSignUp = () => {},
   handleShowForgotPassword = () => {},
@@ -56,7 +57,7 @@ const Signin = ({
           cart: resJson.user.cart,
         });
         initCart(dispatch)(resJson.user.cart);
-        handleOnSignin();
+        // handleOnSignin();
       }
     }
   };

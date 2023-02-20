@@ -31,13 +31,13 @@ export const resetUser = (dispatch) => () => {
   });
 };
 
-export const initProduct = (dispatch) => async () => {
+export const initProduct = (dispatch) => async (content) => {
   try {
     const response = await showProductApi();
     const products = await response.json();
     dispatch({
       type: INIT_PRODUCT,
-      payload: products,
+      payload: { products: products, user: content },
     });
   } catch (error) {
     // dispatch({

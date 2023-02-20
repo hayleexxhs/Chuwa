@@ -6,12 +6,11 @@ import { resetUser, resetCart } from "../../actions";
 
 import "./index.css";
 
-const Signout = ({ handleOnSignout = () => {} }) => {
+const Signout = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
   const handleSignout = async () => {
-    console.log("On Click Sign Out");
     // handleOnSignout();
     try {
       const response = await signoutApi();
@@ -20,10 +19,9 @@ const Signout = ({ handleOnSignout = () => {} }) => {
           `Logout API response status error: ${JSON.stringify(response)}`
         );
       } else {
-        handleOnSignout();
+        // handleOnSignout();
         resetUser(dispatch)();
         resetCart(dispatch)();
-        console.log(user);
       }
     } catch (error) {
       throw new Error(`Logout API error: ${JSON.stringify(error)}`);
