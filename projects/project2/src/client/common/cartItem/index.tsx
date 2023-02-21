@@ -5,6 +5,8 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { RootState } from "../../store";
 import { addOne, minusOne, removeProduct } from "../../actions";
 
+import "./index.css";
+
 interface IProps {
   id: string;
 }
@@ -24,16 +26,16 @@ const CartItem = ({ id }: IProps) => {
   };
 
   const addtoCart = (
-    <button disabled className="product-add-button" style={{ height: 34 }}>
+    <button disabled className="cart-quantity-button" style={{ height: 26 }}>
       <Row>
         <Col span={8}>
-          <a style={{ color: "white" }} onClick={handleMinus}>
+          <a style={{ color: "#cccccc" }} onClick={handleMinus}>
             <MinusOutlined />
           </a>
         </Col>
         <Col span={8}>{pd.quantity}</Col>
         <Col span={8}>
-          <a style={{ color: "white" }} onClick={handleAddToCart}>
+          <a style={{ color: "#cccccc" }} onClick={handleAddToCart}>
             <PlusOutlined />
           </a>
         </Col>
@@ -51,23 +53,21 @@ const CartItem = ({ id }: IProps) => {
           preview={false}
         ></Image>
       </Col>
-      <Col span={16}>
+      <Col
+        span={16}
+        style={{ paddingLeft: "3px", display: "flex", flexDirection: "column" }}
+      >
         <Row>
-          <Col>{pd.name}</Col>
-          <Col>{`$${pd.price}`}</Col>
-        </Row>
-        <Row>
-          <Col>
-            {pd.quantity === 0 ? (
-              <Button className="product-add-button" onClick={handleAddToCart}>
-                Add
-              </Button>
-            ) : (
-              addtoCart
-            )}
+          <Col span={18} className="cart-title">
+            {pd.name}
           </Col>
-          <Col>
+          <Col span={6} className="cart-price">{`$${pd.price}`}</Col>
+        </Row>
+        <Row className="cart-quantity-row">
+          <Col span={12}>{addtoCart}</Col>
+          <Col span={12} style={{ textAlign: "right" }}>
             <a
+              className="cart-remove"
               onClick={() => {
                 removeProduct(dispatch)({
                   id: pd.id,

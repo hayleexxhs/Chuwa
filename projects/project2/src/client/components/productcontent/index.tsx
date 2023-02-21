@@ -13,27 +13,29 @@ const ProductContent = () => {
 
   return (
     <>
-      {isShowCreate || isShowEdit ? (
-        <CreateProduct
-          title={isShowCreate ? "Create Product" : "Edit Product"}
-          id={isShowEdit ? productId : undefined}
-          setIsShowCreate={setIsShowCreate}
-          setIsShowEdit={setIsShowEdit}
-        />
-      ) : isShowDetail ? (
-        <ProductDetail
-          id={productId}
-          handleShowDetail={setIsShowDetail}
-          handleShowEdit={setIsShowEdit}
-        />
-      ) : (
-        <Products
-          handleShowCreate={setIsShowCreate}
-          handleShowEdit={setIsShowEdit}
-          handleShowDetail={setIsShowDetail}
-          getDetailId={setProductId}
-        />
-      )}
+      <div className="product-content">
+        {isShowCreate || isShowEdit ? (
+          <CreateProduct
+            title={isShowCreate ? "Create Product" : "Edit Product"}
+            id={isShowEdit ? productId : undefined}
+            setIsShowCreate={setIsShowCreate}
+            setIsShowEdit={setIsShowEdit}
+          />
+        ) : isShowDetail ? (
+          <ProductDetail
+            id={productId}
+            handleShowDetail={setIsShowDetail}
+            handleShowEdit={setIsShowEdit}
+          />
+        ) : (
+          <Products
+            handleShowCreate={setIsShowCreate}
+            handleShowEdit={setIsShowEdit}
+            handleShowDetail={setIsShowDetail}
+            getDetailId={setProductId}
+          />
+        )}
+      </div>
     </>
   );
 };

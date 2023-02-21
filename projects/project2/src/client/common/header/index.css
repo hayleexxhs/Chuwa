@@ -21,3 +21,43 @@
     height: 48px;
     font-size: 16px;
 }
+
+.discount-title {
+    color: #6B7280;
+    size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.discount-input {
+    color: #979797;
+    size: 14px;
+    font-weight: 600;
+}
+
+.cart-apply {
+    background-color: #5048E5;
+    color: white;
+    size: 14px;
+    font-weight: 700;
+    width: 92px;
+    height: 40px;
+}
+
+.cart-footer-text {
+    color: #111827;
+    size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    margin: 3px 0 3px 15px; 
+}
+
+.cart-checkout-btn {
+    width: 100%;
+    background-color: #5048E5; 
+    color: white;
+    height: 45px;
+    size: 15px;
+    font-weight: 600;
+}

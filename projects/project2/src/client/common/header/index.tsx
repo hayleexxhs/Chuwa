@@ -75,7 +75,14 @@ const Header = () => {
         </Row>
       </div>
 
-      <Drawer title="Cart  " placement="right" onClose={onClose} open={open}>
+      <Drawer
+        title={`Cart (${user.quantity})`}
+        placement="right"
+        onClose={onClose}
+        open={open}
+        width={500}
+        headerStyle={{ backgroundColor: "#5048E5", color: "white" }}
+      >
         <div>
           <List
             dataSource={user.cart}
@@ -85,26 +92,30 @@ const Header = () => {
               </List.Item>
             )}
           />
-          <div>
-            <span>Apply Discount Code</span>
-            <Row>
+          <div style={{ marginTop: "20px" }}>
+            <span className="discount-title">Apply Discount Code</span>
+            <Row style={{ margin: "10px 15px 35px 15px" }}>
               <Col span={18}>
                 <Input
+                  className="discount-input"
+                  size="large"
                   onChange={(e) => setDiscountCode(e.target.value)}
                 ></Input>
               </Col>
-              <Col span={6}>
-                <Button onClick={applyDiscount}>Apply</Button>
+              <Col span={6} style={{ textAlign: "right" }}>
+                <Button onClick={applyDiscount} className="cart-apply">
+                  Apply
+                </Button>
               </Col>
             </Row>
           </div>
           <hr />
-          <div>
-            <Row>
+          <div style={{ marginTop: "20px", marginBottom: "15px" }}>
+            <Row className="cart-footer-text">
               <Col span={18}>Subtotal</Col>
               <Col span={6}>{`$${user.totPrice.toFixed(2)}`}</Col>
             </Row>
-            <Row>
+            <Row className="cart-footer-text">
               <Col span={18}>Tax</Col>
               <Col span={6}>
                 {user.totPrice > discount
@@ -112,11 +123,11 @@ const Header = () => {
                   : "$0.00"}
               </Col>
             </Row>
-            <Row>
+            <Row className="cart-footer-text">
               <Col span={18}>Discount</Col>
               <Col span={6}>{`-$${discount.toFixed(2)}`}</Col>
             </Row>
-            <Row>
+            <Row className="cart-footer-text">
               <Col span={18}>Estimated Total</Col>
               <Col span={6}>
                 {user.totPrice > discount
@@ -125,7 +136,7 @@ const Header = () => {
               </Col>
             </Row>
           </div>
-          <Button>Countinue to checkout</Button>
+          <Button className="cart-checkout-btn">Countinue to checkout</Button>
         </div>
       </Drawer>
     </>

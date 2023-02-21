@@ -1,0 +1,29 @@
+.cart-title {
+  size: 20px;
+  font-weight: 700;
+}
+
+.cart-price {
+  text-align: right;
+  color: #5048e5;
+  size: 20px;
+  font-weight: 600;
+}
+
+.cart-quantity-row {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.cart-quantity-button {
+  width: 90px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.cart-remove {
+  size: 16px;
+  color: #6b7280;
+  text-decoration-line: underline;
+}
