@@ -47,6 +47,21 @@ const validateProductInfo = (req) => {
   );
 };
 
+//Update User
+app.post("/api/updateuser", async (req, res) => {
+  // res.json(userInfo);
+  console.log("Backend --Update User");
+  console.log(req.body);
+  const id = req.body.id;
+  const _user = await User.findOne({id});
+  res.json({
+    message: "succeed",
+    status: "200",
+    user: _user,
+  });
+  return;
+});
+
 //Sign In
 app.post("/api/signin", async (req, res) => {
   // res.json(userInfo);

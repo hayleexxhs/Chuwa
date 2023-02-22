@@ -1,5 +1,16 @@
 import { info } from "console";
 
+export const updateuserApi = async (info: any) => {
+  const response = await fetch("/api/updateuser", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(info),
+  });
+  return response;
+};
+
 export const signinApi = async (info: any) => {
   const response = await fetch("/api/signin", {
     method: "POST",
