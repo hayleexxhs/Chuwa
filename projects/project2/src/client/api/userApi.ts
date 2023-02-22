@@ -11,8 +11,15 @@ export const signinApi = async (info: any) => {
   return response;
 };
 
-export const signoutApi = async (info: any) => {
+export const signoutApi = async () => {
   const response = await fetch("/api/signout", {
+    method: "POST",
+  });
+  return response;
+};
+
+export const signupApi = async (info: any) => {
+  const response = await fetch("/api/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,8 +29,30 @@ export const signoutApi = async (info: any) => {
   return response;
 };
 
-export const signupApi = async (info: any) => {
-  const response = await fetch("/api/signup", {
+export const addoneApi = async (info: any) => {
+  const response = await fetch("/api/addone", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(info),
+  });
+  return response;
+};
+
+export const subtractoneApi = async (info: any) => {
+  const response = await fetch("/api/subtractone", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(info),
+  });
+  return response;
+};
+
+export const removeoneApi = async (info: any) => {
+  const response = await fetch("/api/removeone", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

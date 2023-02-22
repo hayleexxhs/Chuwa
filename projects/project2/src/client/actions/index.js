@@ -3,6 +3,7 @@ import {
   addProductApi,
   editProductApi,
 } from "../api/productApi";
+import { addoneApi, subtractoneApi, removeoneApi } from "../api/userApi";
 
 export const INIT_PRODUCT = "INIT_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
@@ -89,23 +90,42 @@ export const resetCart = (dispatch) => () => {
   });
 };
 
-export const addOne = (dispatch) => (content) => {
-  dispatch({
-    type: ADD_ONE,
-    payload: content,
-  });
+export const addOne = (dispatch) => async (content) => {
+  try {
+    if (content.uid !== "") {
+      const response = await addoneApi(content);
+    }
+    dispatch({
+      type: ADD_ONE,
+      payload: content,
+    });
+  } catch (error) {
+    console.log("error");
+  }
 };
 
-export const minusOne = (dispatch) => (content) => {
-  dispatch({
-    type: MINUS_ONE,
-    payload: content,
-  });
+export const minusOne = (dispatch) => async (content) => {
+  try {
+    if (content.uid !== "") {
+      const response = await subtractoneApi(content);
+    }
+    dispatch({
+      type: MINUS_ONE,
+      payload: content,
+    });
+  } catch (error) {}
 };
 
-export const removeProduct = (dispatch) => (content) => {
-  dispatch({
-    type: REMOVE_PRODUCT,
-    payload: content,
-  });
+export const removeProduct = (dispatch) => async (content) => {
+  try {
+    if (content.uid !== "") {
+      const response = await removeoneApi(content);
+    }
+    dispatch({
+      type: REMOVE_PRODUCT,
+      payload: content,
+    });
+  } catch (error) {
+    console.log("error");
+  }
 };

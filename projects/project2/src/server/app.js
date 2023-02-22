@@ -174,14 +174,81 @@ app.post("/api/signup", async (req, res) => {
 
 //Sign Out
 app.post("/api/signout", async (req, res) => {
-  // res.json(userInfo);
   console.log("Backend --Sign Out");
-  const id = req.body.id;
-  const queryResult = await User.findOne({ id });
-  const { modifiedCount } = await queryResult.updateOne({
-    quantity: req.body.quantity,
-    totPrice: req.body.totPrice.toFixed(2),
-    cart: req.body.cart,
+  res.json({
+    message: "succeed",
+    status: "200",
+  });
+  return;
+});
+
+//Add One Product
+app.post("/api/addone", async (req, res) => {
+  console.log("Backend --Add One");
+  const id = req.body.uid;
+  const pid = req.body.id;
+  let newCart = [];
+  console.log(req.body.uid);
+  const user = await User.findOne({ id });
+  console.log(user);
+  if (user.cart.find((pd) => pd.id === pid)) {
+    newCart = user.cart.map((pd) => {
+      if (pd.id !== pid) return pd;
+      return { ...pd, quantity: pd.quantity + 1 };
+    });
+  } else {
+    newCart = [...user.cart, { id: pid, quantity: 1 }];
+  }
+  const { modifiedCount } = await user.updateOne({
+    quantity: user.quantity + 1,
+    totPrice: Number(user.totPrice) + Number(req.body.price),
+    cart: newCart,
+  });
+  res.json({
+    message: "succeed",
+    status: "200",
+  });
+  return;
+});
+
+//Subtract One Product
+app.post("/api/subtractone", async (req, res) => {
+  console.log("Backend --Subtract One");
+  const id = req.body.uid;
+  const pid = req.body.id;
+  const user = await User.findOne({ id });
+  console.log(user);
+  const newCart = user.cart
+    .map((pd) => {
+      if (pd.id !== pid) return pd;
+      return { ...pd, quantity: pd.quantity - 1 };
+    })
+    .filter((pd) => pd.quantity > 0);
+  const { modifiedCount } = await user.updateOne({
+    quantity: user.quantity - 1,
+    totPrice: Number(user.totPrice) - Number(req.body.price),
+    cart: newCart,
+  });
+  res.json({
+    message: "succeed",
+    status: "200",
+  });
+  return;
+});
+
+//Remove One Product
+app.post("/api/removeone", async (req, res) => {
+  console.log("Backend --Remove One");
+  const id = req.body.uid;
+  const pid = req.body.id;
+  const user = await User.findOne({ id });
+  console.log(user);
+  const newCart = user.cart.filter((pd) => pd.id !== pid);
+  const { modifiedCount } = await user.updateOne({
+    quantity: user.quantity - req.body.quantity,
+    totPrice:
+      Number(user.totPrice) - req.body.quantity * Number(req.body.price),
+    cart: newCart,
   });
   res.json({
     message: "succeed",

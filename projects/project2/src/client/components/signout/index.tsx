@@ -13,12 +13,7 @@ const Signout = () => {
   const handleSignout = async () => {
     // handleOnSignout();
     try {
-      const response = await signoutApi({
-        id: user.id,
-        totPrice: user.totPrice,
-        quantity: user.quantity,
-        cart: user.cart,
-      });
+      const response = await signoutApi();
       if (response.status !== 200) {
         throw new Error(
           `Logout API response status error: ${JSON.stringify(response)}`

@@ -28,11 +28,11 @@ const ProductCard = (props: IProps) => {
   // }, [user.userType]);
 
   const handleAddToCart = () => {
-    addOne(dispatch)({ id: id, price: pd.price });
+    addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)({ id: id, price: pd.price });
+    minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
   };
 
   const addtoCart = (

@@ -13,16 +13,17 @@ interface IProps {
 
 const CartItem = ({ id }: IProps) => {
   const products = useSelector((state: RootState) => state.products);
+  const user = useSelector((state: RootState) => state.user);
   const pd = products.filter((p) => p.id === id)[0];
 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    addOne(dispatch)({ id: id, price: pd.price });
+    addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)({ id: id, price: pd.price });
+    minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
   };
 
   const addtoCart = (
@@ -70,6 +71,7 @@ const CartItem = ({ id }: IProps) => {
               className="cart-remove"
               onClick={() => {
                 removeProduct(dispatch)({
+                  uid: user.id,
                   id: pd.id,
                   price: pd.price,
                   quantity: pd.quantity,
