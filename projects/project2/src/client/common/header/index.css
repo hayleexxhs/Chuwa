@@ -1,6 +1,5 @@
 .header-div {
-    /* position:absolute;
-    top: 0; */
+    /* grid-area: header; */
     width: 100%;
     background-color: #111827;
     height: 64px;

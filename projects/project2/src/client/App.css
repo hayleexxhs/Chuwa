@@ -1,9 +1,13 @@
 .App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
   text-align: center;
-  background-color: #f9fafb;;
+  background-color: #f9fafb;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -36,4 +40,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
