@@ -4,11 +4,13 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { v4: uuidv4 } = require("uuid");
+const jwt = require("jsonwebtoken");
 
 //connect to database
 const connectToMongoose = require("./database/connect");
 const User = require("./database/usermodel");
 const Product = require("./database/productmodel");
+const { resolveSoa } = require("dns");
 connectToMongoose();
 
 // var indexRouter = require("./routes/index");
@@ -53,7 +55,7 @@ app.post("/api/updateuser", async (req, res) => {
   console.log("Backend --Update User");
   console.log(req.body);
   const id = req.body.id;
-  const _user = await User.findOne({id});
+  const _user = await User.findOne({ id });
   res.json({
     message: "succeed",
     status: "200",
@@ -74,7 +76,11 @@ app.post("/api/signin", async (req, res) => {
     // console.log(findUserByEmail);
     if (findUserByEmail.length) {
       if (findUserByEmail[0].password === req.body.password) {
+        //generate token
+        const newToken = "";
         const id = findUserByEmail[0].id;
+        const token = jwt.sign({ id: id }, { expiresIn: "1h" });
+        console.log(token);
         const cart = findUserByEmail[0].cart;
         const arrs = [...req.body.cart, ...cart];
         let map = new Map();
