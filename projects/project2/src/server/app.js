@@ -77,10 +77,9 @@ app.post("/api/signin", async (req, res) => {
     if (findUserByEmail.length) {
       if (findUserByEmail[0].password === req.body.password) {
         //generate token
-        const newToken = "";
         const id = findUserByEmail[0].id;
-        const token = jwt.sign({ id: id }, { expiresIn: "1h" });
-        console.log(token);
+        const token = jwt.sign({ id: id }, "secret", { expiresIn: "1h" });
+        // console.log(`token: ${token}`);
         const cart = findUserByEmail[0].cart;
         const arrs = [...req.body.cart, ...cart];
         let map = new Map();
@@ -102,11 +101,13 @@ app.post("/api/signin", async (req, res) => {
           cart: newCart,
         });
         const _user = await User.findOne({ id });
+        console.log(token);
         console.log(_user);
         res.json({
           message: "succeed",
           status: "200",
           user: _user,
+          token: token,
         });
         return;
       }
