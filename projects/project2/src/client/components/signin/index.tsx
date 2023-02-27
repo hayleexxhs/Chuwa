@@ -10,7 +10,7 @@ import { initCart, initUser } from "../../actions";
 
 import "./index.css";
 
-const token = "";
+// const token = "";
 
 const Signin = ({
   // handleOnSignin = () => {},
@@ -23,6 +23,8 @@ const Signin = ({
 
   const [errorVisible, setErrorVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // const [token, setToken] = useState("");
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
@@ -64,10 +66,11 @@ const Signin = ({
         initCart(dispatch)(resJson.user.cart);
         // handleOnSignin();
         console.log(resJson.token);
+        localStorage.setItem('userToken', resJson.token);
       }
     }
   };
-
+ 
   return (
     <>
       <div className="signin-modal-div">

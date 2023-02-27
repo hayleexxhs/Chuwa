@@ -22,6 +22,7 @@ const Signout = () => {
         // handleOnSignout();
         resetUser(dispatch)();
         resetCart(dispatch)();
+        localStorage.removeItem("userToken");
       }
     } catch (error) {
       throw new Error(`Logout API error: ${JSON.stringify(error)}`);

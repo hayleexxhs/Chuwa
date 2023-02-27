@@ -145,7 +145,7 @@ app.post("/api/signup", async (req, res) => {
     const findUserByEmail = await User.find({
       email: req.body.email,
     });
-    console.log(findUserByEmail);
+    // console.log(findUserByEmail);
     if (findUserByEmail.length) {
       res.status(404).json({
         error: "failed",
@@ -166,6 +166,10 @@ app.post("/api/signup", async (req, res) => {
 
     const addNewUser = await newUser.save();
     if (newUser === addNewUser) {
+      const token = jwt.sign({ id: addNewUser.id }, "secret", {
+        expiresIn: "1h",
+      });
+      console.log(token);
       res.json({
         message: "succeed",
         status: "200",
@@ -178,6 +182,7 @@ app.post("/api/signup", async (req, res) => {
           quantity: addNewUser.quantity,
           totPrice: addNewUser.totPrice,
         },
+        token: token,
       });
       return;
     }

@@ -57,6 +57,7 @@ const Signup = ({
           cart: resJson.user.cart,
         });
         initCart(dispatch)(resJson.user.cart);
+        localStorage.setItem("userToken", resJson.token);
       }
     }
   };
