@@ -16,7 +16,10 @@ function App() {
   useEffect(() => {
     async function updateUser() {
       try {
-        const response = await updateuserApi({ id: user.id });
+        // const response = await updateuserApi({ id: user.id });
+        const response = await updateuserApi({
+          token: localStorage.getItem("userToken"),
+        });
         const resJson = await response.json();
         initUser(dispatch)({
           id: resJson.user.id,
@@ -28,7 +31,8 @@ function App() {
         initProduct(dispatch)(resJson.user);
       } catch (error) {}
     }
-    if (user.userType != "guest") {
+    // if (user.userType != "guest") {
+    if (localStorage.getItem("userToken")) {
       console.log("update user");
       updateUser();
     } else {

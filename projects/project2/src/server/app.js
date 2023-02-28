@@ -54,8 +54,26 @@ app.post("/api/updateuser", async (req, res) => {
   // res.json(userInfo);
   console.log("Backend --Update User");
   console.log(req.body);
-  const id = req.body.id;
+  // const id = req.body.id;
+  const token = req.body.token;
+  let id = "";
+  jwt.verify(token, "secret", function (err, decoded) {
+    if (err) {
+      console.log(err.message);
+      res.json({
+        status: "404",
+        message: err.message,
+      });
+      return;
+    }
+    id = decoded.id;
+    console.log(id);
+  });
+  // const decoded = jwt.verify(token, "secret");
+  // console.log(decoded.id);
+  // const id = decoded.id;
   const _user = await User.findOne({ id });
+  console.log(_user);
   res.json({
     message: "succeed",
     status: "200",
@@ -166,9 +184,7 @@ app.post("/api/signup", async (req, res) => {
 
     const addNewUser = await newUser.save();
     if (newUser === addNewUser) {
-      const token = jwt.sign({ id: addNewUser.id }, "secret", {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign({ id: id }, "secret", { expiresIn: "1h" });
       console.log(token);
       res.json({
         message: "succeed",
