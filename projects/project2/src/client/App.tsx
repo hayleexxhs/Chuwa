@@ -21,14 +21,18 @@ function App() {
           token: localStorage.getItem("userToken"),
         });
         const resJson = await response.json();
-        initUser(dispatch)({
-          id: resJson.user.id,
-          userType: resJson.user.userType,
-          quantity: resJson.user.quantity,
-          totPrice: resJson.user.totPrice,
-          cart: resJson.user.cart,
-        });
-        initProduct(dispatch)(resJson.user);
+        if (resJson.message !== "jwt expired") {
+          console.log("jwt expired");
+        } else {
+          initUser(dispatch)({
+            id: resJson.user.id,
+            userType: resJson.user.userType,
+            quantity: resJson.user.quantity,
+            totPrice: resJson.user.totPrice,
+            cart: resJson.user.cart,
+          });
+          initProduct(dispatch)(resJson.user);
+        }        
       } catch (error) {}
     }
     // if (user.userType != "guest") {
