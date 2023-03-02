@@ -19,11 +19,21 @@ const CartItem = ({ id }: IProps) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    // addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    addOne(dispatch)({
+      token: localStorage.getItem("userToken"),
+      id: id,
+      price: pd.price,
+    });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    // minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    minusOne(dispatch)({
+      token: localStorage.getItem("userToken"),
+      id: id,
+      price: pd.price,
+    });
   };
 
   const addtoCart = (
@@ -71,7 +81,8 @@ const CartItem = ({ id }: IProps) => {
               className="cart-remove"
               onClick={() => {
                 removeProduct(dispatch)({
-                  uid: user.id,
+                  // uid: user.id,
+                  token: localStorage.getItem("userToken"),
                   id: pd.id,
                   price: pd.price,
                   quantity: pd.quantity,

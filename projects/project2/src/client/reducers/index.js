@@ -94,7 +94,7 @@ export const productReducer = (state = [], { type, payload }) => {
 export const userReducer = (
   state = {
     isLog: false,
-    id: "",
+    // id: "",
     userType: "guest",
     quantity: 0,
     totPrice: 0,
@@ -107,7 +107,7 @@ export const userReducer = (
       return {
         ...state,
         isLog: true,
-        id: payload.id,
+        // id: payload.id,
         userType: payload.userType,
         quantity: payload.quantity,
         totPrice: payload.totPrice,
@@ -115,7 +115,7 @@ export const userReducer = (
       };
     case RESET_USER:
       return {
-        id: "",
+        // id: "",
         isLog: false,
         userType: "guest",
         quantity: 0,

@@ -22,11 +22,21 @@ const ProductDetail = ({ id, handleShowDetail, handleShowEdit }: IProps) => {
   const pd = products.filter((p) => p.id === id)[0];
 
   const handleAddToCart = () => {
-    addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    // addOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    addOne(dispatch)({
+      token: localStorage.getItem("userToken"),
+      id: id,
+      price: pd.price,
+    });
   };
 
   const handleMinus = () => {
-    minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    // minusOne(dispatch)({ uid: user.id, id: id, price: pd.price });
+    minusOne(dispatch)({
+      token: localStorage.getItem("userToken"),
+      id: id,
+      price: pd.price,
+    });
   };
 
   const addtoCart = (

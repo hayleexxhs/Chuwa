@@ -92,13 +92,29 @@ export const resetCart = (dispatch) => () => {
 
 export const addOne = (dispatch) => async (content) => {
   try {
-    if (content.uid !== "") {
+    if (content.token) {
       const response = await addoneApi(content);
+      const resJson = await response.json();
+      if (resJson.message === "jwt expired") {
+        localStorage.removeItem("userToken");
+        dispatch({
+          type: RESET_USER,
+        });
+        dispatch({
+          type: RESET_CART,
+        });
+      } else {
+        dispatch({
+          type: ADD_ONE,
+          payload: content,
+        });
+      }
+    } else {
+      dispatch({
+        type: ADD_ONE,
+        payload: content,
+      });
     }
-    dispatch({
-      type: ADD_ONE,
-      payload: content,
-    });
   } catch (error) {
     console.log("error");
   }
@@ -106,25 +122,57 @@ export const addOne = (dispatch) => async (content) => {
 
 export const minusOne = (dispatch) => async (content) => {
   try {
-    if (content.uid !== "") {
+    if (content.token) {
       const response = await subtractoneApi(content);
+      const resJson = await response.json();
+      if (resJson.message === "jwt expired") {
+        localStorage.removeItem("userToken");
+        dispatch({
+          type: RESET_USER,
+        });
+        dispatch({
+          type: RESET_CART,
+        });
+      } else {
+        dispatch({
+          type: MINUS_ONE,
+          payload: content,
+        });
+      }
+    } else {
+      dispatch({
+        type: MINUS_ONE,
+        payload: content,
+      });
     }
-    dispatch({
-      type: MINUS_ONE,
-      payload: content,
-    });
   } catch (error) {}
 };
 
 export const removeProduct = (dispatch) => async (content) => {
   try {
-    if (content.uid !== "") {
+    if (content.token) {
       const response = await removeoneApi(content);
+      const resJson = await response.json();
+      if (resJson.message === "jwt expired") {
+        localStorage.removeItem("userToken");
+        dispatch({
+          type: RESET_USER,
+        });
+        dispatch({
+          type: RESET_CART,
+        });
+      } else {
+        dispatch({
+          type: REMOVE_PRODUCT,
+          payload: content,
+        });
+      }
+    } else {
+      dispatch({
+        type: REMOVE_PRODUCT,
+        payload: content,
+      });
     }
-    dispatch({
-      type: REMOVE_PRODUCT,
-      payload: content,
-    });
   } catch (error) {
     console.log("error");
   }
