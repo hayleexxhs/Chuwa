@@ -6,7 +6,13 @@ import Footer from "./common/footer";
 import Body from "./common/body";
 
 import { updateuserApi } from "./api/userApi";
-import { initProduct, initUser, initCart } from "./actions";
+import {
+  initProduct,
+  initUser,
+  initCart,
+  resetUser,
+  resetCart,
+} from "./actions";
 
 import "./App.css";
 
@@ -21,8 +27,12 @@ function App() {
           token: localStorage.getItem("userToken"),
         });
         const resJson = await response.json();
-        if (resJson.message !== "jwt expired") {
+        if (resJson.message === "jwt expired") {
           console.log("jwt expired");
+          resetUser(dispatch)();
+          resetCart(dispatch)();
+          localStorage.removeItem("userToken");
+          initProduct(dispatch)(user);
         } else {
           initUser(dispatch)({
             id: resJson.user.id,
@@ -32,7 +42,7 @@ function App() {
             cart: resJson.user.cart,
           });
           initProduct(dispatch)(resJson.user);
-        }        
+        }
       } catch (error) {}
     }
     // if (user.userType != "guest") {

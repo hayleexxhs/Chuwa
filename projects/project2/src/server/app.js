@@ -52,34 +52,40 @@ const validateProductInfo = (req) => {
 //Update User
 app.post("/api/updateuser", async (req, res) => {
   // res.json(userInfo);
-  console.log("Backend --Update User");
-  console.log(req.body);
-  // const id = req.body.id;
-  const token = req.body.token;
-  let id = "";
-  jwt.verify(token, "secret", function (err, decoded) {
-    if (err) {
-      console.log(err.message);
+  if (req.body.token) {
+    console.log("Backend --Update User");
+    console.log(req.body);
+    // const id = req.body.id;
+    const token = req.body.token;
+    // let id = "";
+    jwt.verify(token, "secret", async function (err, decoded) {
+      if (err) {
+        console.log(err.message);
+        res.status(404).json({
+          message: err.message,
+        });
+        return;
+      }
+      const id = decoded.id;
+      console.log(id);
+      const _user = await User.findOne({ id });
+      console.log(_user);
       res.json({
-        status: "404",
-        message: err.message,
+        message: "succeed",
+        status: "200",
+        user: _user,
       });
       return;
-    }
-    id = decoded.id;
-    console.log(id);
-  });
-  // const decoded = jwt.verify(token, "secret");
-  // console.log(decoded.id);
-  // const id = decoded.id;
-  const _user = await User.findOne({ id });
-  console.log(_user);
-  res.json({
-    message: "succeed",
-    status: "200",
-    user: _user,
-  });
-  return;
+    });
+    // const _user = await User.findOne({ id });
+    // console.log(_user);
+    // res.json({
+    //   message: "succeed",
+    //   status: "200",
+    //   user: _user,
+    // });
+    // return;
+  }
 });
 
 //Sign In
@@ -96,7 +102,7 @@ app.post("/api/signin", async (req, res) => {
       if (findUserByEmail[0].password === req.body.password) {
         //generate token
         const id = findUserByEmail[0].id;
-        const token = jwt.sign({ id: id }, "secret", { expiresIn: "1h" });
+        const token = jwt.sign({ id: id }, "secret", { expiresIn: "120s" });
         // console.log(`token: ${token}`);
         const cart = findUserByEmail[0].cart;
         const arrs = [...req.body.cart, ...cart];
