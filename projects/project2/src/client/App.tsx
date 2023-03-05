@@ -50,6 +50,8 @@ function App() {
       console.log("update user");
       updateUser();
     } else {
+      resetUser(dispatch)();
+      resetCart(dispatch)();
       initProduct(dispatch)(user);
     }
   }, [dispatch]);
