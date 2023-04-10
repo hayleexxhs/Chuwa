@@ -50,7 +50,7 @@ export const productReducer = (state = [], { type, payload }) => {
 
     case ADD_ONE:
       return state.map((product) => {
-        if (payload.id != product.id) {
+        if (payload.id !== product.id) {
           return product;
         }
         return { ...product, quantity: product.quantity + 1 };
@@ -58,7 +58,7 @@ export const productReducer = (state = [], { type, payload }) => {
 
     case MINUS_ONE:
       return state.map((product) => {
-        if (payload.id != product.id) {
+        if (payload.id !== product.id) {
           return product;
         }
         return { ...product, quantity: product.quantity - 1 };
